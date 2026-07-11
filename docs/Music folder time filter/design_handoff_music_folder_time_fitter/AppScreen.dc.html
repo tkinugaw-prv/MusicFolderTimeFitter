@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @keyframes scanpulse { 0%{ transform:translateX(-40%);} 100%{ transform:translateX(240%);} }
+</style>
+</helmet>
+
+<div style="width:1040px; height:720px; background:oklch(0.16 0.01 260); border:1px solid oklch(0.28 0.01 260); border-radius:8px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.45); font-family:{{ fontFamily }}; color:oklch(0.92 0.004 260);">
+
+  <!-- Title bar -->
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:oklch(0.19 0.008 260); border-bottom:1px solid oklch(0.27 0.01 260); flex-shrink:0;">
+    <div style="font-size:13px; font-weight:600; color:oklch(0.85 0.005 260);">音楽フォルダー時間フィッター</div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button onClick="{{ onToggleSettings }}" style="display:flex; align-items:center; gap:6px; background:transparent; border:1px solid oklch(0.32 0.01 260); color:oklch(0.75 0.005 260); font-size:12px; padding:5px 10px; border-radius:5px; cursor:pointer;" style-hover="background:oklch(0.24 0.01 260);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        設定
+      </button>
+    </div>
+  </div>
+
+  <!-- Input area -->
+  <div style="padding:16px 20px; background:oklch(0.175 0.008 260); border-bottom:1px solid oklch(0.27 0.01 260); flex-shrink:0; display:flex; flex-direction:column; gap:14px;">
+
+    <!-- root folder -->
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <label style="font-size:11px; color:oklch(0.62 0.005 260); font-weight:600; letter-spacing:0.02em;">ルートフォルダー</label>
+      <div style="display:flex; gap:8px;">
+        <input value="D:\Music\Library" readOnly="{{ true }}" style="flex:1; background:oklch(0.14 0.008 260); border:1px solid oklch(0.3 0.01 260); border-radius:5px; padding:8px 10px; font-size:13px; color:oklch(0.88 0.005 260); font-family:inherit;"/>
+        <button style="background:oklch(0.24 0.008 260); border:1px solid oklch(0.34 0.01 260); color:oklch(0.9 0.005 260); font-size:13px; padding:8px 16px; border-radius:5px; cursor:pointer; white-space:nowrap;" style-hover="background:oklch(0.28 0.008 260);">参照...</button>
+      </div>
+    </div>
+
+    <!-- mode + run -->
+    <div style="display:flex; align-items:flex-end; gap:24px;">
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <label style="font-size:11px; color:oklch(0.62 0.005 260); font-weight:600; letter-spacing:0.02em;">時間指定モード</label>
+        <div style="display:flex; align-items:center; gap:20px;">
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px;" onClick="{{ selectDuration }}">
+            <span style="width:16px; height:16px; border-radius:50%; border:2px solid {{ modeIsDuration ? accent : 'oklch(0.4 0.01 260)' }}; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <sc-if value="{{ modeIsDuration }}"><span style="width:8px; height:8px; border-radius:50%; background:{{ accent }};"></span></sc-if>
+            </span>
+            所要時間
+            <input value="90" disabled="{{ !modeIsDuration }}" style="width:64px; margin-left:4px; background:oklch(0.14 0.008 260); border:1px solid oklch(0.3 0.01 260); border-radius:5px; padding:6px 8px; font-size:13px; color:{{ modeIsDuration ? 'oklch(0.88 0.005 260)' : 'oklch(0.5 0.005 260)' }}; font-family:inherit;"/>
+            <span style="color:oklch(0.6 0.005 260); font-size:12px;">分</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px;" onClick="{{ selectTargetTime }}">
+            <span style="width:16px; height:16px; border-radius:50%; border:2px solid {{ !modeIsDuration ? accent : 'oklch(0.4 0.01 260)' }}; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <sc-if value="{{ !modeIsDuration }}"><span style="width:8px; height:8px; border-radius:50%; background:{{ accent }};"></span></sc-if>
+            </span>
+            目標時刻
+            <input value="18:30" disabled="{{ modeIsDuration }}" style="width:64px; margin-left:4px; background:oklch(0.14 0.008 260); border:1px solid oklch(0.3 0.01 260); border-radius:5px; padding:6px 8px; font-size:13px; color:{{ !modeIsDuration ? 'oklch(0.88 0.005 260)' : 'oklch(0.5 0.005 260)' }}; font-family:inherit;"/>
+          </label>
+        </div>
+      </div>
+      <button style="background:{{ accent }}; border:none; color:oklch(0.14 0.01 260); font-size:13px; font-weight:600; padding:9px 22px; border-radius:5px; cursor:pointer;" style-hover="opacity:0.9;">スキャン開始</button>
+    </div>
+  </div>
+
+  <!-- Results table -->
+  <div style="flex:1; overflow:auto; padding:0 20px;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr style="position:sticky; top:0; background:oklch(0.16 0.01 260); z-index:1;">
+          <th style="text-align:left; padding:10px 8px; color:oklch(0.58 0.005 260); font-weight:600; font-size:11px; letter-spacing:0.03em; border-bottom:1px solid oklch(0.28 0.01 260);">フォルダー名</th>
+          <th style="text-align:right; padding:10px 8px; color:oklch(0.58 0.005 260); font-weight:600; font-size:11px; letter-spacing:0.03em; border-bottom:1px solid oklch(0.28 0.01 260); width:120px;">合計時間</th>
+          <th style="text-align:left; padding:10px 8px; color:oklch(0.58 0.005 260); font-weight:600; font-size:11px; letter-spacing:0.03em; border-bottom:1px solid oklch(0.28 0.01 260); width:110px;">リリース日</th>
+          <th style="width:44px; border-bottom:1px solid oklch(0.28 0.01 260);"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <sc-for list="{{ folders }}" as="f" hint-placeholder-count="8">
+          <tr style="border-bottom:1px solid oklch(0.22 0.008 260);" style-hover="background:oklch(0.2 0.008 260);">
+            <td style="padding:10px 8px; color:oklch(0.86 0.005 260);">{{ f.path }}</td>
+            <td style="padding:10px 8px; text-align:right; color:oklch(0.75 0.005 260); font-variant-numeric:tabular-nums;">{{ f.duration }}</td>
+            <td style="padding:10px 8px; color:oklch(0.65 0.005 260); font-variant-numeric:tabular-nums;">{{ f.releaseDate }}</td>
+            <td style="padding:10px 8px; text-align:center;">
+              <button title="AIMPで再生" style="background:transparent; border:1px solid oklch(0.34 0.01 260); border-radius:5px; width:28px; height:28px; display:flex; align-items:center; justify-content:center; color:{{ accent }}; cursor:pointer;" style-hover="background:oklch(0.24 0.008 260);">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+              </button>
+            </td>
+          </tr>
+        </sc-for>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Status bar -->
+  <div style="flex-shrink:0; display:flex; align-items:center; justify-content:space-between; padding:8px 20px; background:oklch(0.19 0.008 260); border-top:1px solid oklch(0.27 0.01 260); font-size:11.5px; color:oklch(0.6 0.005 260);">
+    <div style="display:flex; gap:18px;">
+      <span>スキャン: <span style="color:oklch(0.82 0.005 260); font-weight:600;">128</span> 件</span>
+      <span>該当: <span style="color:{{ accent }}; font-weight:600;">6</span> 件</span>
+      <span>除外: <span style="color:oklch(0.7 0.02 40); font-weight:600;">3</span> 件（タグ読取失敗）</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px; width:180px;">
+      <div style="flex:1; height:4px; background:oklch(0.28 0.01 260); border-radius:2px; overflow:hidden; position:relative;">
+        <div style="position:absolute; top:0; left:0; width:40%; height:100%; background:{{ accent }}; border-radius:2px; animation:scanpulse 1.4s ease-in-out infinite;"></div>
+      </div>
+      <span style="font-size:11px; white-space:nowrap;">スキャン完了</span>
+    </div>
+  </div>
+
+  <!-- Settings dialog overlay -->
+  <sc-if value="{{ showSettings }}">
+    <div style="position:absolute; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; z-index:10;">
+      <div style="width:420px; background:oklch(0.19 0.008 260); border:1px solid oklch(0.3 0.01 260); border-radius:8px; box-shadow:0 20px 50px rgba(0,0,0,0.5); overflow:hidden;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid oklch(0.27 0.01 260);">
+          <div style="font-size:13px; font-weight:600; color:oklch(0.88 0.005 260);">設定</div>
+          <button onClick="{{ onToggleSettings }}" style="background:transparent; border:none; color:oklch(0.6 0.005 260); font-size:16px; cursor:pointer; line-height:1; padding:2px 6px;" style-hover="color:oklch(0.9 0.005 260);">×</button>
+        </div>
+        <div style="padding:18px 16px; display:flex; flex-direction:column; gap:8px;">
+          <label style="font-size:11px; color:oklch(0.62 0.005 260); font-weight:600; letter-spacing:0.02em;">AIMP 実行ファイルパス（ポータブル版）</label>
+          <div style="display:flex; gap:8px;">
+            <input value="D:\Tools\AIMP-portable\AIMP.exe" readOnly="{{ true }}" style="flex:1; background:oklch(0.14 0.008 260); border:1px solid oklch(0.3 0.01 260); border-radius:5px; padding:8px 10px; font-size:12.5px; color:oklch(0.85 0.005 260); font-family:inherit;"/>
+            <button style="background:oklch(0.24 0.008 260); border:1px solid oklch(0.34 0.01 260); color:oklch(0.9 0.005 260); font-size:12.5px; padding:8px 14px; border-radius:5px; cursor:pointer; white-space:nowrap;" style-hover="background:oklch(0.28 0.008 260);">参照...</button>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px; padding:12px 16px; border-top:1px solid oklch(0.27 0.01 260);">
+          <button onClick="{{ onToggleSettings }}" style="background:transparent; border:1px solid oklch(0.34 0.01 260); color:oklch(0.85 0.005 260); font-size:12.5px; padding:7px 16px; border-radius:5px; cursor:pointer;" style-hover="background:oklch(0.24 0.008 260);">キャンセル</button>
+          <button onClick="{{ onToggleSettings }}" style="background:{{ accent }}; border:none; color:oklch(0.14 0.01 260); font-size:12.5px; font-weight:600; padding:7px 18px; border-radius:5px; cursor:pointer;" style-hover="opacity:0.9;">保存</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1040,&quot;height&quot;:720}}">
+class Component extends DCLogic {
+  state = { modeIsDuration: true };
+
+  folders = [
+    { path: 'J-Pop\\Artist A - Album 2023', duration: '01:12:40', releaseDate: '2023-04-12' },
+    { path: 'Soundtrack\\Movie OST', duration: '00:48:05', releaseDate: '2019-11-01' },
+    { path: 'Rock\\Band C - Live Sessions', duration: '01:29:52', releaseDate: '2021-07-20' },
+    { path: 'Classical\\Symphony No.5', duration: '00:41:18', releaseDate: '2015-02-14' },
+    { path: 'Electronica\\Artist D - EP', duration: '00:33:27', releaseDate: '2024-01-09' },
+    { path: 'Jazz\\Trio E - Standards', duration: '01:05:11', releaseDate: '2018-09-03' },
+  ];
+
+  renderVals() {
+    return {
+      fontFamily: this.props.fontFamily || "'Inter', sans-serif",
+      accent: this.props.accent || '#4a9eff',
+      showSettings: !!this.props.showSettings,
+      onToggleSettings: this.props.onToggleSettings || (() => {}),
+      modeIsDuration: this.state.modeIsDuration,
+      selectDuration: () => this.setState({ modeIsDuration: true }),
+      selectTargetTime: () => this.setState({ modeIsDuration: false }),
+      folders: this.folders,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

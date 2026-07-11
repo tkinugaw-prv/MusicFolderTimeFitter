@@ -1,0 +1,279 @@
+<Window x:Class="MusicFolderTimeFitter.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MusicFolderTimeFitter.ViewModels"
+        Title="音楽フォルダー時間フィッター"
+        Width="1040"
+        Height="720"
+        MinWidth="760"
+        MinHeight="480"
+        Background="{StaticResource BgOuterBrush}"
+        FontFamily="{StaticResource AppFontFamily}"
+        FontSize="13"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ============ A. タイトルバー ============ -->
+        <Border Grid.Row="0"
+                Background="{StaticResource PanelBarBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="20,10">
+            <Grid>
+                <TextBlock HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="#C9CDD6"
+                           Text="音楽フォルダー時間フィッター" />
+                <Button HorizontalAlignment="Right"
+                        Click="OnSettingsButtonClick"
+                        Padding="10,5"
+                        Style="{StaticResource OutlineButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,6,0"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   Text="&#xE713;" />
+                        <TextBlock VerticalAlignment="Center" Text="設定" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- ============ B. 入力エリア ============ -->
+        <Border Grid.Row="1"
+                Background="{StaticResource PanelInputBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="20,16">
+            <StackPanel>
+                <!-- ルートフォルダー行 -->
+                <TextBlock Style="{StaticResource FieldLabelStyle}" Text="ルートフォルダー" />
+                <Grid Margin="0,0,0,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             IsReadOnly="True"
+                             Style="{StaticResource DarkTextBoxStyle}"
+                             Text="{Binding RootFolderPath, Mode=OneWay}" />
+                    <Button Grid.Column="1"
+                            Margin="10,0,0,0"
+                            Command="{Binding BrowseRootFolderCommand}"
+                            Content="参照..."
+                            Style="{StaticResource OutlineButtonStyle}" />
+                </Grid>
+
+                <!-- モード切替 + 実行ボタン行 -->
+                <TextBlock Style="{StaticResource FieldLabelStyle}" Text="時間指定モード" />
+                <Grid>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <RadioButton GroupName="TimeMode"
+                                     IsChecked="{Binding IsDurationMode}"
+                                     Style="{StaticResource ModeRadioButtonStyle}"
+                                     Content="所要時間" />
+                        <TextBox Width="70"
+                                 Margin="10,0,0,0"
+                                 HorizontalContentAlignment="Right"
+                                 IsEnabled="{Binding IsDurationMode}"
+                                 Style="{StaticResource DarkTextBoxStyle}"
+                                 Text="{Binding DurationMinutesText, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Margin="7,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   Text="分" />
+
+                        <RadioButton x:Name="TargetTimeRadio"
+                                     Margin="28,0,0,0"
+                                     GroupName="TimeMode"
+                                     Style="{StaticResource ModeRadioButtonStyle}"
+                                     Content="目標時刻" />
+                        <TextBox Width="80"
+                                 Margin="10,0,0,0"
+                                 HorizontalContentAlignment="Center"
+                                 IsEnabled="{Binding IsChecked, ElementName=TargetTimeRadio}"
+                                 Style="{StaticResource DarkTextBoxStyle}"
+                                 Text="{Binding TargetTimeText, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <Button Margin="28,0,0,0"
+                                Command="{Binding StartScanCommand}"
+                                Content="スキャン開始"
+                                Style="{StaticResource AccentButtonStyle}" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- ============ C. 結果一覧 ============ -->
+        <Grid Grid.Row="2">
+            <DataGrid x:Name="ResultGrid"
+                      CellStyle="{StaticResource ResultCellStyle}"
+                      ColumnHeaderStyle="{StaticResource ResultColumnHeaderStyle}"
+                      ItemsSource="{Binding Results}"
+                      MouseDoubleClick="OnResultGridMouseDoubleClick"
+                      RowStyle="{StaticResource ResultRowStyle}"
+                      Style="{StaticResource ResultDataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="2*"
+                                        Binding="{Binding RelativePath}"
+                                        ElementStyle="{StaticResource EllipsisTextStyle}"
+                                        Header="フォルダー名" />
+                    <DataGridTextColumn Width="100"
+                                        Binding="{Binding TotalDurationText}"
+                                        ElementStyle="{StaticResource NumericCellTextStyle}"
+                                        Header="合計時間"
+                                        SortMemberPath="TotalDuration" />
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding Composer}"
+                                        ElementStyle="{StaticResource EllipsisTextStyle}"
+                                        Header="作曲者" />
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding Artist}"
+                                        ElementStyle="{StaticResource EllipsisTextStyle}"
+                                        Header="アーティスト" />
+                    <DataGridTextColumn Width="1.2*"
+                                        Binding="{Binding Album}"
+                                        ElementStyle="{StaticResource EllipsisTextStyle}"
+                                        Header="アルバム" />
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding AlbumArtist}"
+                                        ElementStyle="{StaticResource EllipsisTextStyle}"
+                                        Header="アルバムアーティスト" />
+                    <DataGridTextColumn Width="60"
+                                        Binding="{Binding Year}"
+                                        ElementStyle="{StaticResource NumericCellTextStyle}"
+                                        Header="年" />
+                    <DataGridTemplateColumn Width="48" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.PlayFolderCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"
+                                        IsEnabled="{Binding DataContext.IsAimpAvailable, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        ToolTipService.ShowOnDisabled="True">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource PlayIconButtonStyle}" TargetType="Button">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="ToolTip" Value="AIMP 実行ファイルが見つかりません。設定でパスを指定してください。" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- 空状態表示 -->
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       Foreground="{StaticResource TextSecondaryBrush}"
+                       Text="条件に一致するフォルダーがありません"
+                       Visibility="{Binding IsEmptyStateVisible, Converter={StaticResource BoolToVisibility}}" />
+        </Grid>
+
+        <!-- ============ D. ステータスバー ============ -->
+        <Border Grid.Row="3"
+                Background="{StaticResource PanelBarBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="20,8">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBlock FontSize="11.5" Foreground="{StaticResource TextStatusBrush}">
+                        <Run Text="スキャン:" />
+                        <Run Text="{Binding ScannedCount, Mode=OneWay}" />
+                        <Run Text="件" />
+                    </TextBlock>
+                    <TextBlock Margin="16,0,0,0"
+                               FontSize="11.5"
+                               Foreground="{StaticResource TextStatusBrush}">
+                        <Run Text="該当:" />
+                        <Run FontWeight="SemiBold"
+                             Foreground="{StaticResource AccentBrush}"
+                             Text="{Binding MatchedCount, Mode=OneWay}" />
+                        <Run Text="件" />
+                    </TextBlock>
+                    <TextBlock Margin="16,0,0,0"
+                               FontSize="11.5"
+                               Foreground="{StaticResource TextStatusBrush}">
+                        <Run Text="除外:" />
+                        <Run FontWeight="SemiBold"
+                             Foreground="{StaticResource WarningBrush}"
+                             Text="{Binding ExcludedCount, Mode=OneWay}" />
+                        <Run Text="件（タグ読取失敗）" />
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <!-- プログレスバー（スキャン中はアクセントの帯が左右にアニメーション） -->
+                    <Grid Width="180"
+                          Height="4"
+                          VerticalAlignment="Center"
+                          ClipToBounds="True">
+                        <Border Background="{StaticResource BorderBrush}" CornerRadius="2" />
+                        <Rectangle x:Name="ProgressIndicator"
+                                   Width="60"
+                                   HorizontalAlignment="Left"
+                                   Fill="{StaticResource AccentBrush}"
+                                   RadiusX="2"
+                                   RadiusY="2"
+                                   Visibility="{Binding IsScanning, Converter={StaticResource BoolToVisibility}}">
+                            <Rectangle.RenderTransform>
+                                <TranslateTransform />
+                            </Rectangle.RenderTransform>
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsScanning}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="ProgressStoryboard">
+                                                    <Storyboard RepeatBehavior="Forever">
+                                                        <DoubleAnimation AutoReverse="True"
+                                                                         Duration="0:0:0.9"
+                                                                         From="0"
+                                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                                         To="120" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="ProgressStoryboard" />
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                    </Grid>
+                    <TextBlock Margin="12,0,0,0"
+                               VerticalAlignment="Center"
+                               FontSize="11.5"
+                               Foreground="{StaticResource TextStatusBrush}"
+                               Text="{Binding StatusText}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
