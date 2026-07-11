@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+
+<!-- Clock face fills most of the canvas for legibility at small sizes -->
+<circle cx="128" cy="128" r="112" fill="#9FE1CB" stroke="#0F6E56" stroke-width="10"/>
+<circle cx="128" cy="128" r="90" fill="#E1F5EE"/>
+
+<!-- Clock hands pointing to a near-deadline time -->
+<line x1="128" y1="128" x2="128" y2="66" stroke="#085041" stroke-width="12" stroke-linecap="round"/>
+<line x1="128" y1="128" x2="172" y2="150" stroke="#085041" stroke-width="12" stroke-linecap="round"/>
+<circle cx="128" cy="128" r="10" fill="#085041"/>
+
+<!-- Eighth note badge, bottom-right, high contrast -->
+<g stroke="#0F6E56" fill="#0F6E56">
+<ellipse cx="176" cy="196" rx="15" ry="11" transform="rotate(-18 176 196)"/>
+<rect x="187" y="118" width="7" height="82" rx="3" stroke="none"/>
+<path d="M194 118 Q222 128 219 156 Q216 138 194 145 Z" stroke="none"/>
+</g>
+
+</svg>
