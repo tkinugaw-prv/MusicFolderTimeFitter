@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MusicFolderTimeFitter/MusicFolderTimeFitter.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MusicFolderTimeFitter.Tests/MusicFolderTimeFitter.Tests.csproj" />
+  </Folder>
+</Solution>

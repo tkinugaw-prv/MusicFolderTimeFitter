@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Segoe+UI&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: oklch(0.16 0.01 260); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: oklch(0.32 0.01 260); border-radius: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  a { color: {{ accent }}; }
+  a:hover { color: {{ accent }}; opacity: 0.85; }
+</style>
+</helmet>
+
+<section id="1a" style="position:relative; display:inline-block; vertical-align:top; margin:40px; font-family:'Inter',sans-serif;">
+  <div style="position:absolute; top:-28px; left:0; font-size:13px; font-weight:600; color:oklch(0.7 0.01 260); letter-spacing:0.04em;">1a — Inter（現代的）</div>
+  <dc-import name="AppScreen" font-family="'Inter', sans-serif" accent="{{ accent }}" density="{{ density }}" show-settings="{{ showSettingsA }}" on-toggle-settings="{{ toggleA }}" hint-size="1040px,720px"></dc-import>
+</section>
+
+<section id="1b" style="position:relative; display:inline-block; vertical-align:top; margin:40px; font-family:'Segoe UI',sans-serif;">
+  <div style="position:absolute; top:-28px; left:0; font-size:13px; font-weight:600; color:oklch(0.7 0.01 260); letter-spacing:0.04em;">1b — Segoe UI（Windows標準ぽさ）</div>
+  <dc-import name="AppScreen" font-family="'Segoe UI', 'Yu Gothic UI', sans-serif" accent="{{ accent }}" density="{{ density }}" show-settings="{{ showSettingsB }}" on-toggle-settings="{{ toggleB }}" hint-size="1040px,720px"></dc-import>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:2200,&quot;height&quot;:800},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#4a9eff&quot;,&quot;options&quot;:[&quot;#4a9eff&quot;,&quot;#5ec2a5&quot;,&quot;#e0a458&quot;,&quot;#c98bd8&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;comfortable&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { showSettingsA: false, showSettingsB: false };
+  renderVals() {
+    return {
+      accent: this.props.accentColor || '#4a9eff',
+      density: this.props.density || 'comfortable',
+      showSettingsA: this.state.showSettingsA,
+      showSettingsB: this.state.showSettingsB,
+      toggleA: () => this.setState(s => ({ showSettingsA: !s.showSettingsA })),
+      toggleB: () => this.setState(s => ({ showSettingsB: !s.showSettingsB })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
