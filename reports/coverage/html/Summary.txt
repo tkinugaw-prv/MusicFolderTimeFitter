@@ -1,0 +1,39 @@
+Summary
+  Generated on: 2026/07/12 - 2:07:55
+  Coverage date: 2026/07/12 - 2:07:55
+  Parser: Cobertura
+  Assemblies: 1
+  Classes: 17
+  Files: 22
+  Line coverage: 39.4%
+  Covered lines: 195
+  Uncovered lines: 299
+  Coverable lines: 494
+  Total lines: 1695
+  Branch coverage: 39.3% (39 of 99)
+  Covered branches: 39
+  Total branches: 99
+  Method coverage: 56.1% (41 of 73)
+  Full method coverage: 53.4% (39 of 73)
+  Covered methods: 41
+  Fully covered methods: 39
+  Total methods: 73
+
+MusicFolderTimeFitter                                          39.4%
+  MusicFolderTimeFitter.App                                       0%
+  MusicFolderTimeFitter.Const                                   100%
+  MusicFolderTimeFitter.Models.AppSettings                      100%
+  MusicFolderTimeFitter.Models.FolderScanResult                 100%
+  MusicFolderTimeFitter.Models.MusicFileInfo                    100%
+  MusicFolderTimeFitter.Models.ScanProgress                     100%
+  MusicFolderTimeFitter.Services.AimpLauncher                     0%
+  MusicFolderTimeFitter.Services.FolderScanOutcome              100%
+  MusicFolderTimeFitter.Services.JsonSettingsService           82.8%
+  MusicFolderTimeFitter.Services.MusicFolderScanner            90.5%
+  MusicFolderTimeFitter.Services.RemainingTimeCalculator        100%
+  MusicFolderTimeFitter.Services.RepresentativeValueSelector    100%
+  MusicFolderTimeFitter.Services.TagLibTagReader                  0%
+  MusicFolderTimeFitter.ViewModels.MainViewModel                  0%
+  MusicFolderTimeFitter.ViewModels.SettingsViewModel              0%
+  MusicFolderTimeFitter.Views.MainWindow                          0%
+  MusicFolderTimeFitter.Views.SettingsDialog                      0%

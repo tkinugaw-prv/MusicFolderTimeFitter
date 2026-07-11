@@ -1,0 +1,91 @@
+<Window x:Class="MusicFolderTimeFitter.Views.SettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MusicFolderTimeFitter.ViewModels"
+        Title="設定"
+        Width="420"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="{StaticResource AppFontFamily}"
+        FontSize="13"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d">
+
+    <!-- 中央カード（角丸8px、シャドウ） -->
+    <Border Margin="24"
+            Background="{StaticResource PanelBarBrush}"
+            BorderBrush="{StaticResource BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="50"
+                              Direction="270"
+                              Opacity="0.5"
+                              ShadowDepth="20"
+                              Color="Black" />
+        </Border.Effect>
+        <StackPanel>
+            <!-- ヘッダー -->
+            <Grid Margin="20,16,14,0">
+                <TextBlock HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"
+                           Text="設定" />
+                <Button Width="28"
+                        Height="28"
+                        HorizontalAlignment="Right"
+                        BorderThickness="0"
+                        Command="{Binding CancelCommand}"
+                        Padding="0"
+                        Style="{StaticResource OutlineButtonStyle}">
+                    <TextBlock FontFamily="Segoe MDL2 Assets"
+                               FontSize="11"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Text="&#xE711;" />
+                </Button>
+            </Grid>
+
+            <!-- 本文 -->
+            <StackPanel Margin="20,18,20,0">
+                <TextBlock Style="{StaticResource FieldLabelStyle}" Text="AIMP 実行ファイルパス（ポータブル版）" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             IsReadOnly="True"
+                             Style="{StaticResource DarkTextBoxStyle}"
+                             Text="{Binding AimpExecutablePath, Mode=OneWay}" />
+                    <Button Grid.Column="1"
+                            Margin="10,0,0,0"
+                            Command="{Binding BrowseAimpExecutableCommand}"
+                            Content="参照..."
+                            Style="{StaticResource OutlineButtonStyle}" />
+                </Grid>
+            </StackPanel>
+
+            <!-- フッター -->
+            <StackPanel Margin="20,22,20,18"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <Button Command="{Binding CancelCommand}"
+                        Content="キャンセル"
+                        Style="{StaticResource OutlineButtonStyle}" />
+                <Button Margin="10,0,0,0"
+                        Command="{Binding SaveCommand}"
+                        Content="保存"
+                        Style="{StaticResource AccentButtonStyle}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

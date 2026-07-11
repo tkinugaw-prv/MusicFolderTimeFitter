@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="622223aa-0844-49d1-85dd-7d9a412dc434" name="tkinu@ALDAN_GEN14 2026-07-12 02:07:55" runUser="ALDAN_GEN14\tkinu" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-07-12T02:07:55.1240001+09:00" queuing="2026-07-12T02:07:55.1240002+09:00" start="2026-07-12T02:07:54.3922226+09:00" finish="2026-07-12T02:07:55.2670809+09:00" />
+  <TestSettings name="default" id="3def5fd7-a176-4ab4-a63d-3fc53ffdb9b6">
+    <Deployment runDeploymentRoot="tkinu_ALDAN_GEN14_2026-07-12_02_07_55" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="55396550-94e5-4146-b430-e302ef42eb51" testId="4116ad72-3b92-b3de-640a-d42efc98b1c0" testName="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests.SaveとLoad_設定がラウンドトリップされる" computerName="ALDAN_GEN14" duration="00:00:00.0077026" startTime="2026-07-12T02:07:55.1209765+09:00" endTime="2026-07-12T02:07:55.1209766+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="55396550-94e5-4146-b430-e302ef42eb51" />
+    <UnitTestResult executionId="add61ae4-81e5-4a22-86e6-56f6f0a9342a" testId="8f9f3036-023a-6493-c50b-f780f6f6830a" testName="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_対象外拡張子は集計されない" computerName="ALDAN_GEN14" duration="00:00:00.0016684" startTime="2026-07-12T02:07:55.1113768+09:00" endTime="2026-07-12T02:07:55.1113768+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="add61ae4-81e5-4a22-86e6-56f6f0a9342a" />
+    <UnitTestResult executionId="44c607ba-ad2c-4227-9504-f656fcf69e31" testId="4a1f4e46-6d5c-1649-ba5f-b20b299cf219" testName="MusicFolderTimeFitter.Tests.FolderScanResultTests.TotalDurationText_24時間超も総時間表記になる" computerName="ALDAN_GEN14" duration="00:00:00.0000493" startTime="2026-07-12T02:07:55.0970691+09:00" endTime="2026-07-12T02:07:55.0970691+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="44c607ba-ad2c-4227-9504-f656fcf69e31" />
+    <UnitTestResult executionId="d66feef3-a4bd-4018-bf82-2aa64df97d7f" testId="ecbd5962-5a8c-f0b8-e708-5e249f2a2a69" testName="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromTargetTime_現在時刻と同時刻は残り時間ゼロ" computerName="ALDAN_GEN14" duration="00:00:00.0045972" startTime="2026-07-12T02:07:55.0971406+09:00" endTime="2026-07-12T02:07:55.0971407+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d66feef3-a4bd-4018-bf82-2aa64df97d7f" />
+    <UnitTestResult executionId="021c1876-6d2b-463e-94c3-798b88a9a142" testId="596e1e90-d6e1-fbb5-7127-8127cb10e78a" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_最頻値が選定される" computerName="ALDAN_GEN14" duration="00:00:00.0000306" startTime="2026-07-12T02:07:55.1107568+09:00" endTime="2026-07-12T02:07:55.1107568+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="021c1876-6d2b-463e-94c3-798b88a9a142" />
+    <UnitTestResult executionId="bd57068b-9b81-47ff-abf2-876959416d76" testId="15562f80-6ae6-dcd3-874b-a83f45889543" testName="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_フォルダー単位で集計されサブフォルダーは独立単位になる" computerName="ALDAN_GEN14" duration="00:00:00.0017996" startTime="2026-07-12T02:07:55.1119051+09:00" endTime="2026-07-12T02:07:55.1119051+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bd57068b-9b81-47ff-abf2-876959416d76" />
+    <UnitTestResult executionId="2b5ef838-e21e-4ad1-b0f5-c9e0ffcf9f02" testId="1577e481-1460-144e-c4ab-d1283e7177b9" testName="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromTargetTime_未来の時刻は差分が返る" computerName="ALDAN_GEN14" duration="00:00:00.0000894" startTime="2026-07-12T02:07:55.1091624+09:00" endTime="2026-07-12T02:07:55.1091624+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b5ef838-e21e-4ad1-b0f5-c9e0ffcf9f02" />
+    <UnitTestResult executionId="02235ba8-563d-443b-8ec4-b947b2f4f079" testId="4ac58243-1f4c-9fe0-8a77-c93390a8a9ef" testName="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromDurationMinutes_ゼロ以下はnull(minutes: -5)" computerName="ALDAN_GEN14" duration="00:00:00.0000805" startTime="2026-07-12T02:07:55.0968011+09:00" endTime="2026-07-12T02:07:55.0968012+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="02235ba8-563d-443b-8ec4-b947b2f4f079" />
+    <UnitTestResult executionId="ffdd0bbc-900e-4f43-8495-774c4effd330" testId="85a95029-5f36-1bc1-ee41-f60a2373ef23" testName="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_進捗が通知される" computerName="ALDAN_GEN14" duration="00:00:00.0103112" startTime="2026-07-12T02:07:55.1110432+09:00" endTime="2026-07-12T02:07:55.1110432+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ffdd0bbc-900e-4f43-8495-774c4effd330" />
+    <UnitTestResult executionId="2702ebed-a08a-4307-98ca-a17541b59214" testId="c2abf2a6-17e3-5c25-1ee1-ea9713553acd" testName="MusicFolderTimeFitter.Tests.FolderScanResultTests.TotalDurationText_HHmmss形式でフォーマットされる" computerName="ALDAN_GEN14" duration="00:00:00.0019884" startTime="2026-07-12T02:07:55.0926343+09:00" endTime="2026-07-12T02:07:55.0926433+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2702ebed-a08a-4307-98ca-a17541b59214" />
+    <UnitTestResult executionId="6a69aa39-0129-47aa-8b98-419b780e06a9" testId="8c36871a-0104-4ce7-f386-11bb4b778754" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectYear_値なしのゼロは母数から除外される" computerName="ALDAN_GEN14" duration="00:00:00.0052693" startTime="2026-07-12T02:07:55.1094815+09:00" endTime="2026-07-12T02:07:55.1094815+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a69aa39-0129-47aa-8b98-419b780e06a9" />
+    <UnitTestResult executionId="881caed0-647d-4ded-84e5-7b446e1e007e" testId="dc268564-c417-310f-3ffd-f9e46a5d2c17" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectYear_全てゼロの場合はnull" computerName="ALDAN_GEN14" duration="00:00:00.0000765" startTime="2026-07-12T02:07:55.1096088+09:00" endTime="2026-07-12T02:07:55.1096088+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="881caed0-647d-4ded-84e5-7b446e1e007e" />
+    <UnitTestResult executionId="f012215e-de96-4229-9e01-8080e476561f" testId="616b13fb-321e-2f24-408c-ed6864b48cce" testName="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_タグ代表値が選定される" computerName="ALDAN_GEN14" duration="00:00:00.0014874" startTime="2026-07-12T02:07:55.1114899+09:00" endTime="2026-07-12T02:07:55.1114900+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f012215e-de96-4229-9e01-8080e476561f" />
+    <UnitTestResult executionId="540ae7da-1ed5-4639-9d92-87df9b5799c7" testId="5f02f869-e2b4-eccf-6e57-e2266a1bbf1c" testName="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests.Load_壊れたJSONの場合はデフォルト値" computerName="ALDAN_GEN14" duration="00:00:00.0193029" startTime="2026-07-12T02:07:55.1132328+09:00" endTime="2026-07-12T02:07:55.1132328+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="540ae7da-1ed5-4639-9d92-87df9b5799c7" />
+    <UnitTestResult executionId="307a198a-8d09-43f4-84c3-5d7db6aaa329" testId="3d8a36df-f1a9-7625-61ab-3668de85f4b1" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_空の入力はnull" computerName="ALDAN_GEN14" duration="00:00:00.0018280" startTime="2026-07-12T02:07:55.0960652+09:00" endTime="2026-07-12T02:07:55.0960652+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="307a198a-8d09-43f4-84c3-5d7db6aaa329" />
+    <UnitTestResult executionId="242a9289-afc3-498d-9846-203158874c1a" testId="2dcf39f3-4db3-a837-9812-76d70c623853" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectYear_同数タイは最古の年が選定される" computerName="ALDAN_GEN14" duration="00:00:00.0002468" startTime="2026-07-12T02:07:55.1097405+09:00" endTime="2026-07-12T02:07:55.1097405+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="242a9289-afc3-498d-9846-203158874c1a" />
+    <UnitTestResult executionId="c88ef0f5-5d92-4e4c-9c59-8303e848696a" testId="62ec3d05-90cc-17f8-8f97-39ed44db21aa" testName="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_ルート直下のファイルも集計単位になる" computerName="ALDAN_GEN14" duration="00:00:00.0017253" startTime="2026-07-12T02:07:55.1112654+09:00" endTime="2026-07-12T02:07:55.1112654+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c88ef0f5-5d92-4e4c-9c59-8303e848696a" />
+    <UnitTestResult executionId="c09576a8-5a8d-4ff1-9ee3-5643093dfbdc" testId="394ab8f1-5d80-f68e-9ec4-6ee3cbebe327" testName="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_対象ファイルなしのフォルダーは一覧対象外" computerName="ALDAN_GEN14" duration="00:00:00.0022062" startTime="2026-07-12T02:07:55.1117833+09:00" endTime="2026-07-12T02:07:55.1117834+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c09576a8-5a8d-4ff1-9ee3-5643093dfbdc" />
+    <UnitTestResult executionId="abbc3b2d-7460-4360-9db6-b1d63432da84" testId="e87cbe05-0ccc-f695-da57-4eab329c228e" testName="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromDurationMinutes_ゼロ以下はnull(minutes: 0)" computerName="ALDAN_GEN14" duration="00:00:00.0018265" startTime="2026-07-12T02:07:55.0963471+09:00" endTime="2026-07-12T02:07:55.0963472+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="abbc3b2d-7460-4360-9db6-b1d63432da84" />
+    <UnitTestResult executionId="9b61a1a1-6a38-490c-aa1d-3407905df2a5" testId="3bf29e08-6f8b-d7d3-a010-d1054fbf2651" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_値なしは母数から除外される" computerName="ALDAN_GEN14" duration="00:00:00.0009605" startTime="2026-07-12T02:07:55.1098548+09:00" endTime="2026-07-12T02:07:55.1098549+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b61a1a1-6a38-490c-aa1d-3407905df2a5" />
+    <UnitTestResult executionId="1ae10c41-489f-4198-91b2-9169b7be5d73" testId="327ba3ff-8b79-e545-ea16-ce0e61d3bb4f" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_同数タイは最小値が選定される" computerName="ALDAN_GEN14" duration="00:00:00.0000610" startTime="2026-07-12T02:07:55.1106207+09:00" endTime="2026-07-12T02:07:55.1106207+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1ae10c41-489f-4198-91b2-9169b7be5d73" />
+    <UnitTestResult executionId="6f8348c6-770a-4553-aa15-69f29a7c0534" testId="0390a152-955c-8479-695c-de6921b91fcb" testName="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromTargetTime_過去の時刻はnull" computerName="ALDAN_GEN14" duration="00:00:00.0000419" startTime="2026-07-12T02:07:55.1092832+09:00" endTime="2026-07-12T02:07:55.1092832+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f8348c6-770a-4553-aa15-69f29a7c0534" />
+    <UnitTestResult executionId="c765b1bb-3d00-4f78-b658-6d5f6b3296a4" testId="9911e13a-f2ae-607f-f521-4b33265bf7cf" testName="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests.Load_ファイルなしの場合はデフォルト値" computerName="ALDAN_GEN14" duration="00:00:00.0088803" startTime="2026-07-12T02:07:55.1093645+09:00" endTime="2026-07-12T02:07:55.1093645+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c765b1bb-3d00-4f78-b658-6d5f6b3296a4" />
+    <UnitTestResult executionId="f49b4fb5-5bce-49b4-a44e-1cfa5949dc34" testId="86f0f102-3fde-7f9a-a4fc-092c591b4df0" testName="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromDurationMinutes_正の分数は変換される" computerName="ALDAN_GEN14" duration="00:00:00.0002027" startTime="2026-07-12T02:07:55.1089565+09:00" endTime="2026-07-12T02:07:55.1089565+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f49b4fb5-5bce-49b4-a44e-1cfa5949dc34" />
+    <UnitTestResult executionId="04cfebfb-ba18-40d7-b787-876943e99a3d" testId="7b644411-09f6-064d-6b76-c861a0ea0b7f" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_全て値なしの場合はnull" computerName="ALDAN_GEN14" duration="00:00:00.0000187" startTime="2026-07-12T02:07:55.1108702+09:00" endTime="2026-07-12T02:07:55.1108702+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04cfebfb-ba18-40d7-b787-876943e99a3d" />
+    <UnitTestResult executionId="412512ea-9926-4b25-9fc5-086d87f6eac7" testId="391bc129-e086-cd2a-e0e1-485f0444207d" testName="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_タグ読取失敗を含むフォルダーは除外される" computerName="ALDAN_GEN14" duration="00:00:00.0032433" startTime="2026-07-12T02:07:55.1111554+09:00" endTime="2026-07-12T02:07:55.1111554+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="412512ea-9926-4b25-9fc5-086d87f6eac7" />
+    <UnitTestResult executionId="d03cec97-0dca-4456-a476-f36f0516df41" testId="fa771db7-161d-7053-783f-1546387271c5" testName="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectYear_最頻値が選定される" computerName="ALDAN_GEN14" duration="00:00:00.0000480" startTime="2026-07-12T02:07:55.1109851+09:00" endTime="2026-07-12T02:07:55.1109851+09:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d03cec97-0dca-4456-a476-f36f0516df41" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromTargetTime_過去の時刻はnull" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="0390a152-955c-8479-695c-de6921b91fcb">
+      <Execution id="6f8348c6-770a-4553-aa15-69f29a7c0534" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests" name="FromTargetTime_過去の時刻はnull" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_タグ代表値が選定される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="616b13fb-321e-2f24-408c-ed6864b48cce">
+      <Execution id="f012215e-de96-4229-9e01-8080e476561f" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.MusicFolderScannerTests" name="ScanAsync_タグ代表値が選定される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_タグ読取失敗を含むフォルダーは除外される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="391bc129-e086-cd2a-e0e1-485f0444207d">
+      <Execution id="412512ea-9926-4b25-9fc5-086d87f6eac7" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.MusicFolderScannerTests" name="ScanAsync_タグ読取失敗を含むフォルダーは除外される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_対象ファイルなしのフォルダーは一覧対象外" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="394ab8f1-5d80-f68e-9ec4-6ee3cbebe327">
+      <Execution id="c09576a8-5a8d-4ff1-9ee3-5643093dfbdc" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.MusicFolderScannerTests" name="ScanAsync_対象ファイルなしのフォルダーは一覧対象外" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_空の入力はnull" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="3d8a36df-f1a9-7625-61ab-3668de85f4b1">
+      <Execution id="307a198a-8d09-43f4-84c3-5d7db6aaa329" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectString_空の入力はnull" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_全て値なしの場合はnull" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="7b644411-09f6-064d-6b76-c861a0ea0b7f">
+      <Execution id="04cfebfb-ba18-40d7-b787-876943e99a3d" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectString_全て値なしの場合はnull" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.FolderScanResultTests.TotalDurationText_24時間超も総時間表記になる" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="4a1f4e46-6d5c-1649-ba5f-b20b299cf219">
+      <Execution id="44c607ba-ad2c-4227-9504-f656fcf69e31" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.FolderScanResultTests" name="TotalDurationText_24時間超も総時間表記になる" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromDurationMinutes_ゼロ以下はnull(minutes: -5)" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="4ac58243-1f4c-9fe0-8a77-c93390a8a9ef">
+      <Execution id="02235ba8-563d-443b-8ec4-b947b2f4f079" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests" name="FromDurationMinutes_ゼロ以下はnull" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests.SaveとLoad_設定がラウンドトリップされる" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="4116ad72-3b92-b3de-640a-d42efc98b1c0">
+      <Execution id="55396550-94e5-4146-b430-e302ef42eb51" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests" name="SaveとLoad_設定がラウンドトリップされる" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectYear_同数タイは最古の年が選定される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="2dcf39f3-4db3-a837-9812-76d70c623853">
+      <Execution id="242a9289-afc3-498d-9846-203158874c1a" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectYear_同数タイは最古の年が選定される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectYear_最頻値が選定される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="fa771db7-161d-7053-783f-1546387271c5">
+      <Execution id="d03cec97-0dca-4456-a476-f36f0516df41" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectYear_最頻値が選定される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_最頻値が選定される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="596e1e90-d6e1-fbb5-7127-8127cb10e78a">
+      <Execution id="021c1876-6d2b-463e-94c3-798b88a9a142" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectString_最頻値が選定される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.FolderScanResultTests.TotalDurationText_HHmmss形式でフォーマットされる" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="c2abf2a6-17e3-5c25-1ee1-ea9713553acd">
+      <Execution id="2702ebed-a08a-4307-98ca-a17541b59214" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.FolderScanResultTests" name="TotalDurationText_HHmmss形式でフォーマットされる" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromDurationMinutes_正の分数は変換される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="86f0f102-3fde-7f9a-a4fc-092c591b4df0">
+      <Execution id="f49b4fb5-5bce-49b4-a44e-1cfa5949dc34" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests" name="FromDurationMinutes_正の分数は変換される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests.Load_ファイルなしの場合はデフォルト値" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="9911e13a-f2ae-607f-f521-4b33265bf7cf">
+      <Execution id="c765b1bb-3d00-4f78-b658-6d5f6b3296a4" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests" name="Load_ファイルなしの場合はデフォルト値" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_同数タイは最小値が選定される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="327ba3ff-8b79-e545-ea16-ce0e61d3bb4f">
+      <Execution id="1ae10c41-489f-4198-91b2-9169b7be5d73" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectString_同数タイは最小値が選定される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_フォルダー単位で集計されサブフォルダーは独立単位になる" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="15562f80-6ae6-dcd3-874b-a83f45889543">
+      <Execution id="bd57068b-9b81-47ff-abf2-876959416d76" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.MusicFolderScannerTests" name="ScanAsync_フォルダー単位で集計されサブフォルダーは独立単位になる" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectYear_全てゼロの場合はnull" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="dc268564-c417-310f-3ffd-f9e46a5d2c17">
+      <Execution id="881caed0-647d-4ded-84e5-7b446e1e007e" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectYear_全てゼロの場合はnull" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_対象外拡張子は集計されない" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="8f9f3036-023a-6493-c50b-f780f6f6830a">
+      <Execution id="add61ae4-81e5-4a22-86e6-56f6f0a9342a" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.MusicFolderScannerTests" name="ScanAsync_対象外拡張子は集計されない" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_進捗が通知される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="85a95029-5f36-1bc1-ee41-f60a2373ef23">
+      <Execution id="ffdd0bbc-900e-4f43-8495-774c4effd330" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.MusicFolderScannerTests" name="ScanAsync_進捗が通知される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests.Load_壊れたJSONの場合はデフォルト値" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="5f02f869-e2b4-eccf-6e57-e2266a1bbf1c">
+      <Execution id="540ae7da-1ed5-4639-9d92-87df9b5799c7" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.JsonSettingsServiceTests" name="Load_壊れたJSONの場合はデフォルト値" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromTargetTime_未来の時刻は差分が返る" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="1577e481-1460-144e-c4ab-d1283e7177b9">
+      <Execution id="2b5ef838-e21e-4ad1-b0f5-c9e0ffcf9f02" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests" name="FromTargetTime_未来の時刻は差分が返る" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.MusicFolderScannerTests.ScanAsync_ルート直下のファイルも集計単位になる" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="62ec3d05-90cc-17f8-8f97-39ed44db21aa">
+      <Execution id="c88ef0f5-5d92-4e4c-9c59-8303e848696a" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.MusicFolderScannerTests" name="ScanAsync_ルート直下のファイルも集計単位になる" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectYear_値なしのゼロは母数から除外される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="8c36871a-0104-4ce7-f386-11bb4b778754">
+      <Execution id="6a69aa39-0129-47aa-8b98-419b780e06a9" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectYear_値なしのゼロは母数から除外される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests.SelectString_値なしは母数から除外される" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="3bf29e08-6f8b-d7d3-a010-d1054fbf2651">
+      <Execution id="9b61a1a1-6a38-490c-aa1d-3407905df2a5" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RepresentativeValueSelectorTests" name="SelectString_値なしは母数から除外される" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromTargetTime_現在時刻と同時刻は残り時間ゼロ" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="ecbd5962-5a8c-f0b8-e708-5e249f2a2a69">
+      <Execution id="d66feef3-a4bd-4018-bf82-2aa64df97d7f" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests" name="FromTargetTime_現在時刻と同時刻は残り時間ゼロ" />
+    </UnitTest>
+    <UnitTest name="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests.FromDurationMinutes_ゼロ以下はnull(minutes: 0)" storage="d:\playground\music selector\tests\musicfoldertimefitter.tests\bin\debug\net8.0-windows\musicfoldertimefitter.tests.dll" id="e87cbe05-0ccc-f695-da57-4eab329c228e">
+      <Execution id="abbc3b2d-7460-4360-9db6-b1d63432da84" />
+      <TestMethod codeBase="D:\playground\Music Selector\tests\MusicFolderTimeFitter.Tests\bin\Debug\net8.0-windows\MusicFolderTimeFitter.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="MusicFolderTimeFitter.Tests.RemainingTimeCalculatorTests" name="FromDurationMinutes_ゼロ以下はnull" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4116ad72-3b92-b3de-640a-d42efc98b1c0" executionId="55396550-94e5-4146-b430-e302ef42eb51" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8f9f3036-023a-6493-c50b-f780f6f6830a" executionId="add61ae4-81e5-4a22-86e6-56f6f0a9342a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4a1f4e46-6d5c-1649-ba5f-b20b299cf219" executionId="44c607ba-ad2c-4227-9504-f656fcf69e31" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecbd5962-5a8c-f0b8-e708-5e249f2a2a69" executionId="d66feef3-a4bd-4018-bf82-2aa64df97d7f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="596e1e90-d6e1-fbb5-7127-8127cb10e78a" executionId="021c1876-6d2b-463e-94c3-798b88a9a142" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15562f80-6ae6-dcd3-874b-a83f45889543" executionId="bd57068b-9b81-47ff-abf2-876959416d76" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1577e481-1460-144e-c4ab-d1283e7177b9" executionId="2b5ef838-e21e-4ad1-b0f5-c9e0ffcf9f02" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ac58243-1f4c-9fe0-8a77-c93390a8a9ef" executionId="02235ba8-563d-443b-8ec4-b947b2f4f079" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="85a95029-5f36-1bc1-ee41-f60a2373ef23" executionId="ffdd0bbc-900e-4f43-8495-774c4effd330" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2abf2a6-17e3-5c25-1ee1-ea9713553acd" executionId="2702ebed-a08a-4307-98ca-a17541b59214" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c36871a-0104-4ce7-f386-11bb4b778754" executionId="6a69aa39-0129-47aa-8b98-419b780e06a9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dc268564-c417-310f-3ffd-f9e46a5d2c17" executionId="881caed0-647d-4ded-84e5-7b446e1e007e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="616b13fb-321e-2f24-408c-ed6864b48cce" executionId="f012215e-de96-4229-9e01-8080e476561f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5f02f869-e2b4-eccf-6e57-e2266a1bbf1c" executionId="540ae7da-1ed5-4639-9d92-87df9b5799c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d8a36df-f1a9-7625-61ab-3668de85f4b1" executionId="307a198a-8d09-43f4-84c3-5d7db6aaa329" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2dcf39f3-4db3-a837-9812-76d70c623853" executionId="242a9289-afc3-498d-9846-203158874c1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62ec3d05-90cc-17f8-8f97-39ed44db21aa" executionId="c88ef0f5-5d92-4e4c-9c59-8303e848696a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="394ab8f1-5d80-f68e-9ec4-6ee3cbebe327" executionId="c09576a8-5a8d-4ff1-9ee3-5643093dfbdc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e87cbe05-0ccc-f695-da57-4eab329c228e" executionId="abbc3b2d-7460-4360-9db6-b1d63432da84" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bf29e08-6f8b-d7d3-a010-d1054fbf2651" executionId="9b61a1a1-6a38-490c-aa1d-3407905df2a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="327ba3ff-8b79-e545-ea16-ce0e61d3bb4f" executionId="1ae10c41-489f-4198-91b2-9169b7be5d73" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0390a152-955c-8479-695c-de6921b91fcb" executionId="6f8348c6-770a-4553-aa15-69f29a7c0534" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9911e13a-f2ae-607f-f521-4b33265bf7cf" executionId="c765b1bb-3d00-4f78-b658-6d5f6b3296a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86f0f102-3fde-7f9a-a4fc-092c591b4df0" executionId="f49b4fb5-5bce-49b4-a44e-1cfa5949dc34" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b644411-09f6-064d-6b76-c861a0ea0b7f" executionId="04cfebfb-ba18-40d7-b787-876943e99a3d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="391bc129-e086-cd2a-e0e1-485f0444207d" executionId="412512ea-9926-4b25-9fc5-086d87f6eac7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa771db7-161d-7053-783f-1546387271c5" executionId="d03cec97-0dca-4456-a476-f36f0516df41" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="一覧に存在しない結果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="読み込まれたすべての結果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="27" executed="27" passed="27" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.5.3.1+6b60a9e56a (64-bit .NET 8.0.25)&#xD;
+[xUnit.net 00:00:00.04]   Discovering: MusicFolderTimeFitter.Tests&#xD;
+[xUnit.net 00:00:00.06]   Discovered:  MusicFolderTimeFitter.Tests&#xD;
+[xUnit.net 00:00:00.06]   Starting:    MusicFolderTimeFitter.Tests&#xD;
+[xUnit.net 00:00:00.12]   Finished:    MusicFolderTimeFitter.Tests&#xD;
+</StdOut>
+    </Output>
+    <CollectorDataEntries>
+      <Collector agentName="ALDAN_GEN14" uri="datacollector://microsoft/CoverletCodeCoverage/1.0" collectorDisplayName="XPlat code coverage">
+        <UriAttachments>
+          <UriAttachment>
+            <A href="ALDAN_GEN14\coverage.cobertura.xml"></A>
+          </UriAttachment>
+        </UriAttachments>
+      </Collector>
+    </CollectorDataEntries>
+  </ResultSummary>
+</TestRun>
