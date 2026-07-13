@@ -285,7 +285,7 @@ namespace MusicFolderTimeFitter.ViewModels
             }
             else
             {
-                if (!TimeOnly.TryParse(TargetTimeText, out TimeOnly targetTime))
+                if (!RemainingTimeCalculator.TryParseTargetTime(TargetTimeText, out TimeOnly targetTime))
                 {
                     ShowInputError("目標時刻は HH:mm 形式で入力してください。（例: 18:30）");
                     return null;
