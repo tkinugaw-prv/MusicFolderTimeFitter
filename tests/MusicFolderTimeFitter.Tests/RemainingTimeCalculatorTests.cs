@@ -116,5 +116,39 @@ namespace MusicFolderTimeFitter.Tests
 
             Assert.Equal(TimeSpan.Zero, result);
         }
+
+        /// <summary>
+        /// 目標時刻パース: コロン省略や 3 桁入力が自動補完されて解釈されることを検証する。
+        /// </summary>
+        [Theory]
+        [InlineData("1030", 10, 30)]
+        [InlineData("730", 7, 30)]
+        [InlineData("0730", 7, 30)]
+        [InlineData("18:30", 18, 30)]
+        [InlineData(" 730 ", 7, 30)]
+        public void TryParseTargetTime_有効な入力はパースされる(string input, int hour, int minute)
+        {
+            bool success = RemainingTimeCalculator.TryParseTargetTime(input, out TimeOnly result);
+
+            Assert.True(success);
+            Assert.Equal(new TimeOnly(hour, minute), result);
+        }
+
+        /// <summary>
+        /// 目標時刻パース: 補完しても時刻として解釈できない入力は失敗することを検証する。
+        /// </summary>
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("abc")]
+        [InlineData("2560")]
+        [InlineData("12345")]
+        [InlineData("73")]
+        public void TryParseTargetTime_不正な入力は失敗する(string? input)
+        {
+            bool success = RemainingTimeCalculator.TryParseTargetTime(input, out _);
+
+            Assert.False(success);
+        }
     }
 }
