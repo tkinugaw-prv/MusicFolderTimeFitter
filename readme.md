@@ -10,7 +10,7 @@
 
 | 項目 | 内容 |
 |---|---|
-| フレームワーク | .NET 8 / WPF (`net8.0-windows`) |
+| フレームワーク | .NET 10 / WPF (`net10.0-windows`) |
 | タグ読み取り | [TagLibSharp](https://github.com/mono/taglib-sharp)（LGPL v2.1） |
 | MVVM | CommunityToolkit.Mvvm |
 | テスト | xUnit + coverlet（カバレッジ） + ReportGenerator |
@@ -58,7 +58,7 @@ dotnet run --project src/MusicFolderTimeFitter
 ### 再現手順
 
 ```powershell
-# 1. テスト実行 + TRX ログ + カバレッジ収集（要 .NET 8 SDK 以降）
+# 1. テスト実行 + TRX ログ + カバレッジ収集（要 .NET 10 SDK 以降）
 dotnet test --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage" --results-directory "reports/raw"
 
 # 2. ReportGenerator のインストール（初回のみ）
