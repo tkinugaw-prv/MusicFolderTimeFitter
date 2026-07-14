@@ -290,23 +290,25 @@ var assemblies = [
   {
     "name": "MusicFolderTimeFitter",
     "classes": [
-      { "name": "MusicFolderTimeFitter.App", "rp": "MusicFolderTimeFitter_App.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 127, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.App", "rp": "MusicFolderTimeFitter_App.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 128, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Const", "rp": "MusicFolderTimeFitter_Const.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 28, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.Interop.DwmDarkTitleBar", "rp": "MusicFolderTimeFitter_DwmDarkTitleBar.html", "cl": 0, "ucl": 18, "cal": 18, "tl": 69, "cb": 0, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Models.AppSettings", "rp": "MusicFolderTimeFitter_AppSettings.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 14, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MusicFolderTimeFitter.Models.FolderScanResult", "rp": "MusicFolderTimeFitter_FolderScanResult.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 41, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.Models.FolderScanResult", "rp": "MusicFolderTimeFitter_FolderScanResult.html", "cl": 14, "ucl": 4, "cal": 18, "tl": 63, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Models.MusicFileInfo", "rp": "MusicFolderTimeFitter_MusicFileInfo.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Models.ScanProgress", "rp": "MusicFolderTimeFitter_ScanProgress.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Services.AimpLauncher", "rp": "MusicFolderTimeFitter_AimpLauncher.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 34, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Services.FolderScanOutcome", "rp": "MusicFolderTimeFitter_FolderScanOutcome.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 35, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MusicFolderTimeFitter.Services.JsonSettingsService", "rp": "MusicFolderTimeFitter_JsonSettingsService.html", "cl": 29, "ucl": 6, "cal": 35, "tl": 77, "cb": 5, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.Services.JsonSettingsService", "rp": "MusicFolderTimeFitter_JsonSettingsService.html", "cl": 29, "ucl": 6, "cal": 35, "tl": 77, "cb": 4, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Services.MusicFolderScanner", "rp": "MusicFolderTimeFitter_MusicFolderScanner.html", "cl": 86, "ucl": 9, "cal": 95, "tl": 197, "cb": 18, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MusicFolderTimeFitter.Services.RemainingTimeCalculator", "rp": "MusicFolderTimeFitter_RemainingTimeCalculator.html", "cl": 19, "ucl": 0, "cal": 19, "tl": 55, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.Services.RemainingTimeCalculator", "rp": "MusicFolderTimeFitter_RemainingTimeCalculator.html", "cl": 38, "ucl": 7, "cal": 45, "tl": 106, "cb": 16, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Services.RepresentativeValueSelector", "rp": "MusicFolderTimeFitter_RepresentativeValueSelector.html", "cl": 29, "ucl": 0, "cal": 29, "tl": 71, "cb": 12, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.Services.TagLibTagReader", "rp": "MusicFolderTimeFitter_TagLibTagReader.html", "cl": 0, "ucl": 24, "cal": 24, "tl": 55, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MusicFolderTimeFitter.ViewModels.MainViewModel", "rp": "MusicFolderTimeFitter_MainViewModel.html", "cl": 0, "ucl": 155, "cal": 155, "tl": 324, "cb": 0, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.ViewModels.MainViewModel", "rp": "MusicFolderTimeFitter_MainViewModel.html", "cl": 0, "ucl": 179, "cal": 179, "tl": 367, "cb": 0, "tb": 40, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MusicFolderTimeFitter.ViewModels.SettingsViewModel", "rp": "MusicFolderTimeFitter_SettingsViewModel.html", "cl": 0, "ucl": 27, "cal": 27, "tl": 74, "cb": 0, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MusicFolderTimeFitter.Views.MainWindow", "rp": "MusicFolderTimeFitter_MainWindow.html", "cl": 0, "ucl": 26, "cal": 26, "tl": 340, "cb": 0, "tb": 13, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MusicFolderTimeFitter.Views.SettingsDialog", "rp": "MusicFolderTimeFitter_SettingsDialog.html", "cl": 0, "ucl": 15, "cal": 15, "tl": 195, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.Views.MainWindow", "rp": "MusicFolderTimeFitter_MainWindow.html", "cl": 0, "ucl": 46, "cal": 46, "tl": 390, "cb": 0, "tb": 21, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.Views.SettingsDialog", "rp": "MusicFolderTimeFitter_SettingsDialog.html", "cl": 0, "ucl": 15, "cal": 15, "tl": 199, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MusicFolderTimeFitter.Views.TrayIconController", "rp": "MusicFolderTimeFitter_TrayIconController.html", "cl": 0, "ucl": 53, "cal": 53, "tl": 110, "cb": 0, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
@@ -321,13 +323,25 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
-    "assembly": "MusicFolderTimeFitter", "class": "MusicFolderTimeFitter.ViewModels.MainViewModel", "reportPath": "MusicFolderTimeFitter_MainViewModel.html", "methodName": "CalculateRemainingTime()", "methodShortName": "CalculateRemainingTime()", "fileIndex": 0, "line": 268,
+    "assembly": "MusicFolderTimeFitter", "class": "MusicFolderTimeFitter.ViewModels.MainViewModel", "reportPath": "MusicFolderTimeFitter_MainViewModel.html", "methodName": "CalculateRemainingTime()", "methodShortName": "CalculateRemainingTime()", "fileIndex": 0, "line": 306,
     "metrics": [
       { "value": 110, "exceeded": true },
       { "value": 10, "exceeded": false },
     ]},
   {
-    "assembly": "MusicFolderTimeFitter", "class": "MusicFolderTimeFitter.ViewModels.MainViewModel", "reportPath": "MusicFolderTimeFitter_MainViewModel.html", "methodName": "StartScanAsync()", "methodShortName": "StartScanAsync()", "fileIndex": 0, "line": 149,
+    "assembly": "MusicFolderTimeFitter", "class": "MusicFolderTimeFitter.ViewModels.MainViewModel", "reportPath": "MusicFolderTimeFitter_MainViewModel.html", "methodName": "UpdateTargetTimeFromDuration()", "methodShortName": "UpdateTargetTimeFromDuration()", "fileIndex": 0, "line": 136,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "MusicFolderTimeFitter", "class": "MusicFolderTimeFitter.ViewModels.MainViewModel", "reportPath": "MusicFolderTimeFitter_MainViewModel.html", "methodName": "StartScanAsync()", "methodShortName": "StartScanAsync()", "fileIndex": 0, "line": 186,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "MusicFolderTimeFitter", "class": "MusicFolderTimeFitter.Views.MainWindow", "reportPath": "MusicFolderTimeFitter_MainWindow.html", "methodName": "OnStateChanged(System.EventArgs)", "methodShortName": "OnStateChanged(...)", "fileIndex": 1, "line": 47,
     "metrics": [
       { "value": 42, "exceeded": true },
       { "value": 6, "exceeded": false },
