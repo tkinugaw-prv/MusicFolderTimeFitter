@@ -25,4 +25,22 @@ jobs:
         run: dotnet restore tests/MusicFolderTimeFitter.Tests/MusicFolderTimeFitter.Tests.csproj
 
       - name: Test
-        run: dotnet test tests/MusicFolderTimeFitter.Tests/MusicFolderTimeFitter.Tests.csproj --configuration Release --no-restore --verbosity normal
+        run: dotnet test tests/MusicFolderTimeFitter.Tests/MusicFolderTimeFitter.Tests.csproj --configuration Release --no-restore --verbosity normal --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage" --results-directory reports/raw
+
+      - name: Generate coverage report
+        run: |
+          dotnet tool install --global dotnet-reportgenerator-globaltool
+          reportgenerator "-reports:reports/raw/**/coverage.cobertura.xml" "-targetdir:reports/coverage/html" "-reporttypes:Html;TextSummary"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results
+          path: reports/raw/test-results.trx
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: reports/coverage/html
