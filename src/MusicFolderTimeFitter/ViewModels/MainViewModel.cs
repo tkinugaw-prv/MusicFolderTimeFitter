@@ -108,6 +108,43 @@ namespace MusicFolderTimeFitter.ViewModels
             Results.CollectionChanged += (_, _) => OnPropertyChanged(nameof(IsEmptyStateVisible));
 
             RefreshAimpAvailability();
+            UpdateTargetTimeFromDuration();
+        }
+
+        /// <summary>所要時間の分数入力が変化したら目標時刻の表示を更新する。</summary>
+        /// <param name="value">変更後の分数入力テキスト。</param>
+        partial void OnDurationMinutesTextChanged(string value)
+        {
+            UpdateTargetTimeFromDuration();
+        }
+
+        /// <summary>所要時間モードに切り替わったら目標時刻の表示を更新する。</summary>
+        /// <param name="value">変更後のモード（true は所要時間モード）。</param>
+        partial void OnIsDurationModeChanged(bool value)
+        {
+            if (value)
+            {
+                UpdateTargetTimeFromDuration();
+            }
+        }
+
+        /// <summary>
+        /// 所要時間モードの分数入力から目標時刻（現在時刻 + 分数）を算出し、目標時刻欄に表示する。
+        /// 分数が不正な場合は何もしない。
+        /// </summary>
+        private void UpdateTargetTimeFromDuration()
+        {
+            if (!IsDurationMode || !int.TryParse(DurationMinutesText, out int minutes))
+            {
+                return;
+            }
+
+            TimeOnly? targetTime = _remainingTimeCalculator.TargetTimeFromDurationMinutes(minutes);
+
+            if (targetTime != null)
+            {
+                TargetTimeText = targetTime.Value.ToString("HH:mm");
+            }
         }
 
         /// <summary>
@@ -186,6 +223,7 @@ namespace MusicFolderTimeFitter.ViewModels
 
                 foreach (FolderScanResult folder in matched)
                 {
+                    folder.Slack = remaining.Value - folder.TotalDuration;
                     Results.Add(folder);
                 }
 
@@ -279,6 +317,11 @@ namespace MusicFolderTimeFitter.ViewModels
                 if (remaining == null)
                 {
                     ShowInputError("所要時間は 1 分以上を入力してください。");
+                }
+                else
+                {
+                    // 入力からスキャン開始までの経過時間を補正して目標時刻の表示を最新化する
+                    UpdateTargetTimeFromDuration();
                 }
 
                 return remaining;
