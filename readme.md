@@ -46,16 +46,11 @@ dotnet run --project src/MusicFolderTimeFitter
 
 ## テストとカバレッジレポート
 
-テスト結果とカバレッジは第三者が検証できる形で [reports/](reports/) に配置しています。
+テスト結果とカバレッジレポートは GitHub Actions（[test ワークフロー](.github/workflows/test.yml)）が
+実行ごとに生成し、各 Run の **Artifacts**（`test-results` / `coverage-report`）として公開しています。
+第三者はそこからテスト結果（TRX）・カバレッジ生データ（Cobertura XML）・HTML レポートを検証できます。
 
-| ファイル | 内容 |
-|---|---|
-| `reports/test-results.trx` | `dotnet test` の実行結果ログ（VSTest TRX 形式） |
-| `reports/coverage/Cobertura.xml` | coverlet が収集したカバレッジ生データ（Cobertura 形式） |
-| `reports/coverage/html/index.html` | ReportGenerator による HTML カバレッジレポート |
-| `reports/coverage/html/Summary.txt` | カバレッジサマリー（テキスト） |
-
-### 再現手順
+### ローカルでの再現手順
 
 ```powershell
 # 1. テスト実行 + TRX ログ + カバレッジ収集（要 .NET 10 SDK 以降）
@@ -64,12 +59,9 @@ dotnet test --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Co
 # 2. ReportGenerator のインストール（初回のみ）
 dotnet tool install --global dotnet-reportgenerator-globaltool
 
-# 3. 成果物の配置と HTML レポート生成
-Copy-Item "reports/raw/test-results.trx" "reports/test-results.trx"
+# 3. HTML レポート生成（reports/ は git 管理外）
 $cov = Get-ChildItem "reports/raw" -Recurse -Filter "coverage.cobertura.xml" | Select-Object -First 1
-New-Item -ItemType Directory -Force "reports/coverage" | Out-Null
-Copy-Item $cov.FullName "reports/coverage/Cobertura.xml"
-reportgenerator "-reports:reports/coverage/Cobertura.xml" "-targetdir:reports/coverage/html" "-reporttypes:Html;TextSummary"
+reportgenerator "-reports:$($cov.FullName)" "-targetdir:reports/coverage/html" "-reporttypes:Html;TextSummary"
 ```
 
 ### カバレッジ方針
@@ -94,7 +86,11 @@ UI 層（Views / ViewModels / App）と外部プロセス・実音源依存部�
 |---|---|---|
 | （なし） | — | — |
 
-## ライセンス上の留意点
+## ライセンス
+
+本リポジトリは [MIT License](LICENSE) で公開しています。
+
+### 依存ライブラリに関する留意点
 
 タグ読み取りに使用している TagLibSharp は **LGPL v2.1** です。
 バイナリ配布時は LGPL の条件（ライセンス文書の同梱、ライブラリ差し替え可能性の確保等）に留意してください。
