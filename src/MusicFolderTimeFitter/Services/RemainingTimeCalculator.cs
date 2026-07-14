@@ -33,6 +33,23 @@ namespace MusicFolderTimeFitter.Services
         }
 
         /// <summary>
+        /// 所要時間モード: 現在時刻に分数を加えた目標時刻を算出する。
+        /// </summary>
+        /// <param name="minutes">聴ける時間（分）。</param>
+        /// <returns>目標時刻。分数が 0 以下の場合は null（不正入力）。</returns>
+        public TimeOnly? TargetTimeFromDurationMinutes(int minutes)
+        {
+            if (minutes <= 0)
+            {
+                return null;
+            }
+
+            DateTimeOffset now = _timeProvider.GetLocalNow();
+
+            return TimeOnly.FromDateTime(now.DateTime.AddMinutes(minutes));
+        }
+
+        /// <summary>
         /// 目標時刻の入力文字列をパースする。コロン省略の数字入力（例: 1030 → 10:30）や
         /// 3 桁入力（例: 730 → 07:30）は自動的に補完して解釈する。
         /// </summary>

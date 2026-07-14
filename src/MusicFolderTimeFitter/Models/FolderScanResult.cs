@@ -29,13 +29,35 @@ namespace MusicFolderTimeFitter.Models
         /// <summary>代表値: 年（値なしは "(不明)"）。</summary>
         public required string Year { get; init; }
 
+        /// <summary>スキャン時の残り時間に対する余裕時間（残り時間 − 合計時間）。スキャン後に設定される。</summary>
+        public TimeSpan Slack { get; set; }
+
         /// <summary>合計再生時間の表示用文字列（HH:mm:ss、24時間超も総時間表記）。</summary>
         public string TotalDurationText
         {
             get
             {
-                return $"{(int)TotalDuration.TotalHours:00}:{TotalDuration.Minutes:00}:{TotalDuration.Seconds:00}";
+                return FormatDuration(TotalDuration);
             }
+        }
+
+        /// <summary>余裕時間の表示用文字列（HH:mm:ss、24時間超も総時間表記）。</summary>
+        public string SlackText
+        {
+            get
+            {
+                return FormatDuration(Slack);
+            }
+        }
+
+        /// <summary>
+        /// 時間量を HH:mm:ss 形式（24時間超も総時間表記）に整形する。
+        /// </summary>
+        /// <param name="duration">整形対象の時間量。</param>
+        /// <returns>整形後の文字列。</returns>
+        private static string FormatDuration(TimeSpan duration)
+        {
+            return $"{(int)duration.TotalHours:00}:{duration.Minutes:00}:{duration.Seconds:00}";
         }
     }
 }

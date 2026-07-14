@@ -142,6 +142,11 @@
                                         ElementStyle="{StaticResource NumericCellTextStyle}"
                                         Header="合計時間"
                                         SortMemberPath="TotalDuration" />
+                    <DataGridTextColumn Width="100"
+                                        Binding="{Binding SlackText}"
+                                        ElementStyle="{StaticResource NumericCellTextStyle}"
+                                        Header="余裕時間"
+                                        SortMemberPath="Slack" />
                     <DataGridTextColumn Width="*"
                                         Binding="{Binding Composer}"
                                         ElementStyle="{StaticResource EllipsisTextStyle}"
