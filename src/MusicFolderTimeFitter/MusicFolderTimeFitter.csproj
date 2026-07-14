@@ -8,6 +8,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Assets\app_icon.ico</ApplicationIcon>
+    <!-- リリース時は CI がタグから -p:Version= で上書きする基準値 -->
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -25,6 +25,37 @@ dotnet build
 dotnet run --project src/MusicFolderTimeFitter
 ```
 
+### 配布用 exe の作成（dotnet publish）
+
+publish プロファイル（[src/MusicFolderTimeFitter/Properties/PublishProfiles/](src/MusicFolderTimeFitter/Properties/PublishProfiles/)）で
+単一 exe を生成できます。2 種類の構成があります。
+
+| プロファイル | 形態 | サイズ目安 | 実行要件 |
+|---|---|---|---|
+| `win-x64-self-contained` | 自己完結型（ランタイム同梱） | 約 70〜80MB | なし（Windows x64） |
+| `win-x64-framework-dependent` | フレームワーク依存型 | 数 MB | .NET 10 デスクトップランタイム |
+
+```powershell
+# 自己完結型（配布のメイン）
+dotnet publish src/MusicFolderTimeFitter -p:PublishProfile=win-x64-self-contained
+
+# フレームワーク依存型（軽量版）
+dotnet publish src/MusicFolderTimeFitter -p:PublishProfile=win-x64-framework-dependent
+```
+
+出力先はそれぞれ `src/MusicFolderTimeFitter/bin/publish/<プロファイル名>/MusicFolderTimeFitter.exe` です。
+
+### リリース手順（GitHub Release）
+
+`v` で始まるタグを push すると、[release ワークフロー](.github/workflows/release.yml)が
+テスト → 両構成の publish → GitHub Release 作成（exe 添付）を自動実行します。
+バージョンはタグ名から設定されます（例: `v1.2.3` → `1.2.3`）。
+
+```powershell
+git tag v1.0.0
+git push origin v1.0.0
+```
+
 ### 使い方
 
 1. 「参照...」でルートフォルダー（音楽ライブラリ）を選択する。
@@ -94,4 +125,6 @@ UI 層（Views / ViewModels / App）と外部プロセス・実音源依存部�
 
 タグ読み取りに使用している TagLibSharp は **LGPL v2.1** です。
 バイナリ配布時は LGPL の条件（ライセンス文書の同梱、ライブラリ差し替え可能性の確保等）に留意してください。
-本リポジトリのように NuGet 参照でアセンブリを分離したまま配布する形態であれば通常問題ありません。
+本リポジトリの単一 exe 配布は TagLibSharp のアセンブリを exe 内に同梱する形態のため、
+ソースコード（本リポジトリ）を公開し、利用者が TagLibSharp を差し替えて再ビルド・再 publish
+できる状態を維持することで差し替え可能性を担保しています。

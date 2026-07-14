@@ -198,6 +198,8 @@ publish/
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
+# デスクトップアプリの publish プロファイルは秘匿情報を含まないためコミット対象
+!src/MusicFolderTimeFitter/Properties/PublishProfiles/*.pubxml
 
 # Microsoft Azure Web App publish settings. Comment the next line if you want to
 # checkin your Azure Web App publish settings, but sensitive information contained
