@@ -260,6 +260,19 @@
         <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
     </Style>
 
+    <!-- 列幅リサイズ用グリッパー（PART_LeftHeaderGripper / PART_RightHeaderGripper に適用） -->
+    <Style x:Key="ColumnHeaderGripperStyle" TargetType="Thumb">
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Cursor" Value="SizeWE" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border Background="Transparent" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ResultColumnHeaderStyle" TargetType="DataGridColumnHeader">
         <Setter Property="Background" Value="{StaticResource PanelInputBrush}" />
         <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
@@ -271,23 +284,31 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridColumnHeader">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                        <StackPanel Margin="{TemplateBinding Padding}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    Orientation="Horizontal">
-                            <ContentPresenter VerticalAlignment="Center" />
-                            <Path x:Name="SortArrow"
-                                  Width="8"
-                                  Height="5"
-                                  Margin="5,0,0,0"
-                                  VerticalAlignment="Center"
-                                  Data="M0,5 L4,0 L8,5 Z"
-                                  Fill="{StaticResource AccentBrush}"
-                                  Visibility="Collapsed" />
-                        </StackPanel>
-                    </Border>
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <StackPanel Margin="{TemplateBinding Padding}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        Orientation="Horizontal">
+                                <ContentPresenter VerticalAlignment="Center" />
+                                <Path x:Name="SortArrow"
+                                      Width="8"
+                                      Height="5"
+                                      Margin="5,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Data="M0,5 L4,0 L8,5 Z"
+                                      Fill="{StaticResource AccentBrush}"
+                                      Visibility="Collapsed" />
+                            </StackPanel>
+                        </Border>
+                        <Thumb x:Name="PART_LeftHeaderGripper"
+                               HorizontalAlignment="Left"
+                               Style="{StaticResource ColumnHeaderGripperStyle}" />
+                        <Thumb x:Name="PART_RightHeaderGripper"
+                               HorizontalAlignment="Right"
+                               Style="{StaticResource ColumnHeaderGripperStyle}" />
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="SortDirection" Value="Ascending">
                             <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
