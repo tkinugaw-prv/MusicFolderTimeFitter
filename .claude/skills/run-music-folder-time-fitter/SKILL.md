@@ -74,7 +74,7 @@ dotnet run --project src/MusicFolderTimeFitter   # ウィンドウが開く。�
 dotnet test
 ```
 
-38 件全パス(約 1 秒)。カバレッジ付き実行は readme.md 参照。
+38 件全パス(約 1 秒)。カバレッジ付き実行は README.md 参照。
 
 ## Gotchas
 

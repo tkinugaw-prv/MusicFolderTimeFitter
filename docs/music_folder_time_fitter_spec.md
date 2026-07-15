@@ -29,7 +29,7 @@
 
 ```
 MusicFolderTimeFitter.sln
-readme.md                          … ビルド/実行手順、環境変数テーブル（本アプリは環境変数不使用の旨を記載）
+README.md                          … ビルド/実行手順、環境変数テーブル（本アプリは環境変数不使用の旨を記載）
 src/MusicFolderTimeFitter/
   App.xaml / App.xaml.cs           … DI 的な組み立て（手動 new で十分）、テーマ読込
   Const.cs                         … 定数定義（設定ファイル名、対象拡張子など。FULL_CAPITAL）
@@ -103,7 +103,7 @@ reports/                           … テスト結果 + カバレッジレポ�
 ### 規約対応（llm_guideline.md）
 - Allman ブレース必須（1行 if 禁止）、クラス/メソッドにヘッダコメント（XML doc）必須。
 - 定数 `FULL_CAPITAL`、フィールド `_lowerCamel`、インターフェイス `I` 接頭辞。
-- 環境変数は不使用 → `readme.md` に「使用環境変数: なし」のテーブルを明記（規約要求）。
+- 環境変数は不使用 → `README.md` に「使用環境変数: なし」のテーブルを明記（規約要求）。
 - EF Core / DB 規約は本アプリでは対象外。
 
 ## 実装手順
@@ -114,8 +114,8 @@ reports/                           … テスト結果 + カバレッジレポ�
 4. ViewModels（MainViewModel, SettingsViewModel）
 5. Themes/DarkTheme.xaml + MainWindow + SettingsDialog（デザイントークン反映）
 6. 単体テスト（xUnit、スタブ TagReader で実音源不要に）
-7. テストレポート生成: `dotnet test --logger "trx" --collect:"XPlat Code Coverage"` → ReportGenerator で HTML 化し `reports/` に配置。再現手順（コマンド）を readme.md に記載し第三者が再実行・検証できる状態にする
-8. readme.md 作成（ビルド/実行手順、テスト・カバレッジ再現手順、環境変数テーブル）
+7. テストレポート生成: `dotnet test --logger "trx" --collect:"XPlat Code Coverage"` → ReportGenerator で HTML 化し `reports/` に配置。再現手順（コマンド）を README.md に記載し第三者が再実行・検証できる状態にする
+8. README.md 作成（ビルド/実行手順、テスト・カバレッジ再現手順、環境変数テーブル）
 
 ## 検証
 
