@@ -24,14 +24,15 @@ param(
 
     [string]$RootFolder,
     [string]$Value,
-    [string]$Path
+    [string]$Path,
+    [string]$Exe   # 起動する exe の明示指定(既定: Debug ビルド出力。publish 版の確認などに使う)
 )
 
 $ErrorActionPreference = "Stop"
 
 # リポジトリルート = このスクリプトの 3 階層上(.claude/skills/run-*/ 配下にいる)
 $RepoRoot = (Resolve-Path "$PSScriptRoot\..\..\..").Path
-$ExePath = Join-Path $RepoRoot "src\MusicFolderTimeFitter\bin\Debug\net10.0-windows\MusicFolderTimeFitter.exe"
+$ExePath = if ($Exe) { (Resolve-Path $Exe).Path } else { Join-Path $RepoRoot "src\MusicFolderTimeFitter\bin\Debug\net10.0-windows\MusicFolderTimeFitter.exe" }
 $SettingsDir = Join-Path $env:APPDATA "MusicFolderTimeFitter"
 $SettingsPath = Join-Path $SettingsDir "settings.json"
 $SettingsBackup = Join-Path $SettingsDir "settings.json.mftf-driver-bak"
