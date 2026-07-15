@@ -58,6 +58,7 @@ pwsh -NoProfile -File $d stop                     # 終了 + settings.json 復�
 | `results` | ステータスバーの件数と DataGrid 全行をテキスト出力 |
 | `screenshot [-Path x]` | ウィンドウをキャプチャ(既定: `%TEMP%\mftf-screenshot.png`)。撮ったら必ず Read で目視確認 |
 | `stop` | ウィンドウを閉じ、settings.json バックアップを復元 |
+| `-Exe <path>`(共通オプション) | 起動する exe を明示指定(既定: Debug ビルド出力)。publish した単一 exe の確認に使う(例: `smoke -Exe src\MusicFolderTimeFitter\bin\publish\win-x64-self-contained\MusicFolderTimeFitter.exe`) |
 
 実行するとユーザーのデスクトップに実ウィンドウが表示される(ヘッドレス不可)。作業後は必ず `stop` すること。
 
@@ -73,7 +74,7 @@ dotnet run --project src/MusicFolderTimeFitter   # ウィンドウが開く。�
 dotnet test
 ```
 
-38 件全パス(約 1 秒)。カバレッジ付き実行は readme.md 参照。
+38 件全パス(約 1 秒)。カバレッジ付き実行は README.md 参照。
 
 ## Gotchas
 

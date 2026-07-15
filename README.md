@@ -1,5 +1,7 @@
 # 音楽フォルダー時間フィッター（Music Folder Time Fitter）
 
+日本語 | [English](README.en.md)
+
 指定したルートフォルダー配下の音楽ファイル（FLAC / M4A）をフォルダー単位で再生時間集計し、
 「所要時間」または「目標時刻」に収まるフォルダーだけを一覧表示する Windows デスクトップアプリです。
 一覧の各行から AIMP（ポータブル版）へフォルダーを渡して再生できます。
@@ -25,6 +27,37 @@ dotnet build
 dotnet run --project src/MusicFolderTimeFitter
 ```
 
+### 配布用 exe の作成（dotnet publish）
+
+publish プロファイル（[src/MusicFolderTimeFitter/Properties/PublishProfiles/](src/MusicFolderTimeFitter/Properties/PublishProfiles/)）で
+単一 exe を生成できます。2 種類の構成があります。
+
+| プロファイル | 形態 | サイズ目安 | 実行要件 |
+|---|---|---|---|
+| `win-x64-self-contained` | 自己完結型（ランタイム同梱） | 約 70〜80MB | なし（Windows x64） |
+| `win-x64-framework-dependent` | フレームワーク依存型 | 数 MB | .NET 10 デスクトップランタイム |
+
+```powershell
+# 自己完結型（配布のメイン）
+dotnet publish src/MusicFolderTimeFitter -p:PublishProfile=win-x64-self-contained
+
+# フレームワーク依存型（軽量版）
+dotnet publish src/MusicFolderTimeFitter -p:PublishProfile=win-x64-framework-dependent
+```
+
+出力先はそれぞれ `src/MusicFolderTimeFitter/bin/publish/<プロファイル名>/MusicFolderTimeFitter.exe` です。
+
+### リリース手順（GitHub Release）
+
+`v` で始まるタグを push すると、[release ワークフロー](.github/workflows/release.yml)が
+テスト → 両構成の publish → GitHub Release 作成（exe 添付）を自動実行します。
+バージョンはタグ名から設定されます（例: `v1.2.3` → `1.2.3`）。
+
+```powershell
+git tag v1.0.0
+git push origin v1.0.0
+```
+
 ### 使い方
 
 1. 「参照...」でルートフォルダー（音楽ライブラリ）を選択する。
@@ -46,16 +79,11 @@ dotnet run --project src/MusicFolderTimeFitter
 
 ## テストとカバレッジレポート
 
-テスト結果とカバレッジは第三者が検証できる形で [reports/](reports/) に配置しています。
+テスト結果とカバレッジレポートは GitHub Actions（[test ワークフロー](.github/workflows/test.yml)）が
+実行ごとに生成し、各 Run の **Artifacts**（`test-results` / `coverage-report`）として公開しています。
+第三者はそこからテスト結果（TRX）・カバレッジ生データ（Cobertura XML）・HTML レポートを検証できます。
 
-| ファイル | 内容 |
-|---|---|
-| `reports/test-results.trx` | `dotnet test` の実行結果ログ（VSTest TRX 形式） |
-| `reports/coverage/Cobertura.xml` | coverlet が収集したカバレッジ生データ（Cobertura 形式） |
-| `reports/coverage/html/index.html` | ReportGenerator による HTML カバレッジレポート |
-| `reports/coverage/html/Summary.txt` | カバレッジサマリー（テキスト） |
-
-### 再現手順
+### ローカルでの再現手順
 
 ```powershell
 # 1. テスト実行 + TRX ログ + カバレッジ収集（要 .NET 10 SDK 以降）
@@ -64,12 +92,9 @@ dotnet test --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Co
 # 2. ReportGenerator のインストール（初回のみ）
 dotnet tool install --global dotnet-reportgenerator-globaltool
 
-# 3. 成果物の配置と HTML レポート生成
-Copy-Item "reports/raw/test-results.trx" "reports/test-results.trx"
+# 3. HTML レポート生成（reports/ は git 管理外）
 $cov = Get-ChildItem "reports/raw" -Recurse -Filter "coverage.cobertura.xml" | Select-Object -First 1
-New-Item -ItemType Directory -Force "reports/coverage" | Out-Null
-Copy-Item $cov.FullName "reports/coverage/Cobertura.xml"
-reportgenerator "-reports:reports/coverage/Cobertura.xml" "-targetdir:reports/coverage/html" "-reporttypes:Html;TextSummary"
+reportgenerator "-reports:$($cov.FullName)" "-targetdir:reports/coverage/html" "-reporttypes:Html;TextSummary"
 ```
 
 ### カバレッジ方針
@@ -94,8 +119,14 @@ UI 層（Views / ViewModels / App）と外部プロセス・実音源依存部�
 |---|---|---|
 | （なし） | — | — |
 
-## ライセンス上の留意点
+## ライセンス
+
+本リポジトリは [MIT License](LICENSE) で公開しています。
+
+### 依存ライブラリに関する留意点
 
 タグ読み取りに使用している TagLibSharp は **LGPL v2.1** です。
 バイナリ配布時は LGPL の条件（ライセンス文書の同梱、ライブラリ差し替え可能性の確保等）に留意してください。
-本リポジトリのように NuGet 参照でアセンブリを分離したまま配布する形態であれば通常問題ありません。
+本リポジトリの単一 exe 配布は TagLibSharp のアセンブリを exe 内に同梱する形態のため、
+ソースコード（本リポジトリ）を公開し、利用者が TagLibSharp を差し替えて再ビルド・再 publish
+できる状態を維持することで差し替え可能性を担保しています。
