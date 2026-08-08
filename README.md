@@ -50,7 +50,9 @@ dotnet publish src/MusicFolderTimeFitter -p:PublishProfile=win-x64-framework-dep
 ### リリース手順（GitHub Release）
 
 `v` で始まるタグを push すると、[release ワークフロー](.github/workflows/release.yml)が
-テスト → 両構成の publish → GitHub Release 作成（exe 添付）を自動実行します。
+テスト → 両構成の publish → GitHub Release 作成を自動実行します。
+Release には exe 2 種類に加えて `LICENSE.txt` と
+[`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md) が添付されます。
 バージョンはタグ名から設定されます（例: `v1.2.3` → `1.2.3`）。
 
 ```powershell
@@ -105,11 +107,15 @@ UI 層（Views / ViewModels / App）と外部プロセス・実音源依存部�
 
 | クラス | ラインカバレッジ |
 |---|---|
-| MusicFolderScanner | 90.5% |
 | RepresentativeValueSelector | 100% |
-| RemainingTimeCalculator | 100% |
+| AppSettings / MusicFileInfo / ScanProgress | 100% |
+| MusicFolderScanner | 90.5% |
+| RemainingTimeCalculator | 84.4% |
 | JsonSettingsService | 82.8% |
-| Models（FolderScanResult 等） | 100% |
+| FolderScanResult | 77.7% |
+
+数値は計測時点のスナップショットです。最新の値は test ワークフローが生成する
+`coverage-report` アーティファクトを参照してください。
 
 ## 使用する環境変数
 
@@ -123,10 +129,17 @@ UI 層（Views / ViewModels / App）と外部プロセス・実音源依存部�
 
 本リポジトリは [MIT License](LICENSE) で公開しています。
 
+配布する exe に含まれる第三者コンポーネントの著作権表示とライセンス全文は
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) にまとめています。
+GitHub Release では exe と一緒に `LICENSE.txt` と `THIRD-PARTY-NOTICES.md` を配布しています。
+
 ### 依存ライブラリに関する留意点
 
 タグ読み取りに使用している TagLibSharp は **LGPL v2.1** です。
-バイナリ配布時は LGPL の条件（ライセンス文書の同梱、ライブラリ差し替え可能性の確保等）に留意してください。
-本リポジトリの単一 exe 配布は TagLibSharp のアセンブリを exe 内に同梱する形態のため、
-ソースコード（本リポジトリ）を公開し、利用者が TagLibSharp を差し替えて再ビルド・再 publish
-できる状態を維持することで差し替え可能性を担保しています。
+単一 exe 配布は TagLibSharp のアセンブリを exe 内へバンドルする形態のため、
+LGPL の条件には次のとおり対応しています。
+
+- **ライセンス文書の同梱**: LGPL v2.1 の全文と著作権表示を収録した `THIRD-PARTY-NOTICES.md` を Release の資産として添付
+- **差し替え可能性の確保**: 単一ファイル化しない構成で publish すれば `TagLibSharp.dll` が独立したファイルとして出力され、改変版に置き換えられます（手順は [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) を参照）
+
+LGPL はライブラリを利用する側のライセンスを制約しないため、本体のソースコードは MIT のままです。

@@ -201,6 +201,9 @@ publish/
 # デスクトップアプリの publish プロファイルは秘匿情報を含まないためコミット対象
 !src/MusicFolderTimeFitter/Properties/PublishProfiles/*.pubxml
 
+# release ワークフローが Release 資産を組み立てる作業ディレクトリ
+dist/
+
 # Microsoft Azure Web App publish settings. Comment the next line if you want to
 # checkin your Azure Web App publish settings, but sensitive information contained
 # in these scripts will be unencrypted
