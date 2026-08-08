@@ -49,7 +49,9 @@ The output is `src/MusicFolderTimeFitter/bin/publish/<profile name>/MusicFolderT
 ### Release procedure (GitHub Release)
 
 Pushing a tag that starts with `v` triggers the [release workflow](.github/workflows/release.yml), which
-runs tests → publishes both configurations → creates a GitHub Release (with the exe files attached).
+runs tests → publishes both configurations → creates a GitHub Release.
+Besides the two exe files, the Release also carries `LICENSE.txt` and
+[`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
 The version is derived from the tag name (e.g. `v1.2.3` → `1.2.3`).
 
 ```powershell
@@ -121,10 +123,18 @@ This application does not use any environment variables.
 
 This repository is published under the [MIT License](LICENSE).
 
+Copyright notices and full license texts for the third-party components included in the
+distributed exe are collected in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+GitHub Releases ship `LICENSE.txt` and `THIRD-PARTY-NOTICES.md` alongside the exe files.
+
 ### Note on dependencies
 
 TagLibSharp, used for tag reading, is licensed under **LGPL v2.1**.
-When distributing binaries, be mindful of the LGPL conditions (bundling the license text, ensuring the library remains replaceable, etc.).
-Since the single-exe distribution of this repository bundles the TagLibSharp assembly inside the exe,
-replaceability is ensured by keeping the source code (this repository) public so that users can swap out
-TagLibSharp and rebuild / re-publish it themselves.
+Since the single-exe distribution bundles the TagLibSharp assembly inside the exe,
+the LGPL conditions are addressed as follows.
+
+- **Bundling the license text**: `THIRD-PARTY-NOTICES.md`, which reproduces the full LGPL v2.1 text and the copyright notices, is attached as a Release asset
+- **Keeping the library replaceable**: publishing without single-file packaging emits `TagLibSharp.dll` as a standalone file that can be swapped for a modified build (see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for the exact command)
+
+The LGPL does not constrain the license of the code that uses the library, so this
+application's own source code remains MIT.

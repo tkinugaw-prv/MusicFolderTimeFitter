@@ -1,5 +1,10 @@
 name: Release
 
+# Action はコミット SHA で固定する（末尾のコメントが対応するバージョン）。
+# 可変タグ（@v5 等）は同じ参照のまま中身が差し替わりうるため、公開リポジトリでは
+# サプライチェーン対策として SHA を使う。このワークフローは contents: write を
+# 持つため特に重要。更新時はコメントのバージョンも直すこと。
+
 on:
   push:
     tags: ['v*']
@@ -11,10 +16,10 @@ jobs:
   release:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
         with:
           dotnet-version: 10.0.x
 
@@ -32,8 +37,14 @@ jobs:
           Copy-Item "src/MusicFolderTimeFitter/bin/publish/win-x64-self-contained/MusicFolderTimeFitter.exe" "dist/MusicFolderTimeFitter-$tag-win-x64.exe"
           Copy-Item "src/MusicFolderTimeFitter/bin/publish/win-x64-framework-dependent/MusicFolderTimeFitter.exe" "dist/MusicFolderTimeFitter-$tag-win-x64-fdd.exe"
 
+          # exe に同梱する第三者コンポーネント（TagLibSharp は LGPL-2.1）の告知は
+          # 配布物に添付する必要がある。Release の資産として exe と一緒に置く。
+          # LICENSE は拡張子を付けて Windows でそのまま開けるようにする。
+          Copy-Item "THIRD-PARTY-NOTICES.md" "dist/THIRD-PARTY-NOTICES.md"
+          Copy-Item "LICENSE" "dist/LICENSE.txt"
+
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
           files: dist/*
           generate_release_notes: true
@@ -42,3 +53,5 @@ jobs:
             |---|---|---|
             | `MusicFolderTimeFitter-${{ github.ref_name }}-win-x64.exe` | 自己完結型（ランタイム同梱） | なし（Windows x64） |
             | `MusicFolderTimeFitter-${{ github.ref_name }}-win-x64-fdd.exe` | フレームワーク依存型 | .NET 10 デスクトップランタイム |
+
+            本体は MIT License（`LICENSE.txt`）。exe に同梱される第三者コンポーネントの著作権表示とライセンス全文は `THIRD-PARTY-NOTICES.md` を参照してください。
