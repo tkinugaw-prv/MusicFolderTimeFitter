@@ -105,11 +105,15 @@ are out of scope for unit tests and are verified manually. Coverage of the main 
 
 | Class | Line coverage |
 |---|---|
-| MusicFolderScanner | 90.5% |
 | RepresentativeValueSelector | 100% |
-| RemainingTimeCalculator | 100% |
+| AppSettings / MusicFileInfo / ScanProgress | 100% |
+| MusicFolderScanner | 90.5% |
+| RemainingTimeCalculator | 84.4% |
 | JsonSettingsService | 82.8% |
-| Models (FolderScanResult, etc.) | 100% |
+| FolderScanResult | 77.7% |
+
+These figures are a snapshot taken at measurement time. For current values, see the
+`coverage-report` artifact produced by the test workflow.
 
 ## Environment Variables
 

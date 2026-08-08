@@ -107,11 +107,15 @@ UI 層（Views / ViewModels / App）と外部プロセス・実音源依存部�
 
 | クラス | ラインカバレッジ |
 |---|---|
-| MusicFolderScanner | 90.5% |
 | RepresentativeValueSelector | 100% |
-| RemainingTimeCalculator | 100% |
+| AppSettings / MusicFileInfo / ScanProgress | 100% |
+| MusicFolderScanner | 90.5% |
+| RemainingTimeCalculator | 84.4% |
 | JsonSettingsService | 82.8% |
-| Models（FolderScanResult 等） | 100% |
+| FolderScanResult | 77.7% |
+
+数値は計測時点のスナップショットです。最新の値は test ワークフローが生成する
+`coverage-report` アーティファクトを参照してください。
 
 ## 使用する環境変数
 
