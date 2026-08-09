@@ -72,6 +72,9 @@ git push origin v1.0.0
 5. AIMP 実行ファイルのパスはタイトルバー右の「設定」から変更できる
    （デフォルト: `D:\AIMP\AIMP.exe`。設定は `%APPDATA%\MusicFolderTimeFitter\settings.json` に永続化）。
 
+ルートフォルダー・時間指定モード・所要時間・目標時刻は終了時に保存され、次回起動時に復元されます
+（所要時間モードの場合、目標時刻欄は起動時の現在時刻 + 所要時間で再計算されます）。
+
 ### 集計・除外ルール
 
 - タグが読めない／壊れたファイルを含むフォルダーは**フォルダーごと除外**（ステータスバーに除外件数を表示）。
@@ -101,18 +104,21 @@ reportgenerator "-reports:$($cov.FullName)" "-targetdir:reports/coverage/html" "
 
 ### カバレッジ方針
 
-単体テストの対象は**コアロジック**（スキャン・集計・代表値選定・残り時間算出・設定永続化）です。
-UI 層（Views / ViewModels / App）と外部プロセス・実音源依存部（AimpLauncher / TagLibTagReader）は
-単体テスト対象外とし、手動の動作確認で検証します。主要クラスのカバレッジ:
+単体テストの対象は**コアロジック**（スキャン・集計・代表値選定・残り時間算出・設定永続化）と、
+ViewModel の入力状態の復元・保存ロジックです。View 層（Views / App）、
+モーダルダイアログを伴う ViewModel の経路、外部プロセス・実音源依存部
+（AimpLauncher / TagLibTagReader）は単体テスト対象外とし、手動の動作確認で検証します。
+主要クラスのカバレッジ:
 
 | クラス | ラインカバレッジ |
 |---|---|
 | RepresentativeValueSelector | 100% |
 | AppSettings / MusicFileInfo / ScanProgress | 100% |
+| RemainingTimeCalculator | 95.6% |
 | MusicFolderScanner | 90.5% |
-| RemainingTimeCalculator | 84.4% |
 | JsonSettingsService | 82.8% |
-| FolderScanResult | 77.7% |
+| FolderScanResult | 77.8% |
+| MainViewModel | 49.7% |
 
 数値は計測時点のスナップショットです。最新の値は test ワークフローが生成する
 `coverage-report` アーティファクトを参照してください。

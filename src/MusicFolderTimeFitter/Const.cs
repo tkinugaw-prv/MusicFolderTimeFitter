@@ -14,6 +14,12 @@ namespace MusicFolderTimeFitter
         /// <summary>AIMP 実行ファイルパスのデフォルト値。</summary>
         public const string DEFAULT_AIMP_EXECUTABLE_PATH = @"D:\AIMP\AIMP.exe";
 
+        /// <summary>所要時間（分）のデフォルト値。</summary>
+        public const int DEFAULT_DURATION_MINUTES = 90;
+
+        /// <summary>目標時刻（HH:mm）のデフォルト値。</summary>
+        public const string DEFAULT_TARGET_TIME = "18:30";
+
         /// <summary>タグ値が存在しない場合の表示文字列。</summary>
         public const string UNKNOWN_VALUE_DISPLAY = "(不明)";
 

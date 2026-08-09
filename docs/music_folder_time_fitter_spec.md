@@ -38,7 +38,8 @@ src/MusicFolderTimeFitter/
     MusicFileInfo.cs               … 1ファイル分のメタ情報（duration, 作曲者, アーティスト, アルバム, アルバムアーティスト, 年）
     FolderScanResult.cs            … 相対パス・合計時間・代表値5項目（作曲者/アーティスト/アルバム/アルバムアーティスト/年）
     ScanProgress.cs                … スキャン済み/該当/除外件数、状態テキスト
-    AppSettings.cs                 … AimpExecutablePath（デフォルト `D:\AIMP\AIMP.exe`、Const に定義）, LastRootFolderPath
+    AppSettings.cs                 … AimpExecutablePath（デフォルト `D:\AIMP\AIMP.exe`、Const に定義）, LastRootFolderPath,
+                                     IsDurationMode / DurationMinutes / TargetTime（前回終了時の時間指定入力）
   Services/
     ITagReader.cs / TagLibTagReader.cs
                                    … ファイル→(再生時間, タグ5項目) 抽出。TagLibSharp 依存をここに隔離

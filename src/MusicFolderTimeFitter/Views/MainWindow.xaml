@@ -105,12 +105,13 @@
                         <RadioButton x:Name="TargetTimeRadio"
                                      Margin="28,0,0,0"
                                      GroupName="TimeMode"
+                                     IsChecked="{Binding IsTargetTimeMode}"
                                      Style="{StaticResource ModeRadioButtonStyle}"
                                      Content="目標時刻" />
                         <TextBox Width="80"
                                  Margin="10,0,0,0"
                                  HorizontalContentAlignment="Center"
-                                 IsEnabled="{Binding IsChecked, ElementName=TargetTimeRadio}"
+                                 IsEnabled="{Binding IsTargetTimeMode}"
                                  Style="{StaticResource DarkTextBoxStyle}"
                                  Text="{Binding TargetTimeText, UpdateSourceTrigger=PropertyChanged}" />
 

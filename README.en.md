@@ -70,6 +70,9 @@ git push origin v1.0.0
 5. The path to the AIMP executable can be changed from "設定" (Settings) at the right of the title bar
    (default: `D:\AIMP\AIMP.exe`; settings are persisted to `%APPDATA%\MusicFolderTimeFitter\settings.json`).
 
+The root folder, time specification mode, duration, and target time are saved on exit and restored on the next launch
+(in duration mode, the target time field is recalculated at launch as the current time + the duration).
+
 ### Aggregation & exclusion rules
 
 - Folders containing files whose tags cannot be read or are corrupted are **excluded as a whole folder** (the number of exclusions is shown in the status bar).
@@ -99,18 +102,20 @@ reportgenerator "-reports:$($cov.FullName)" "-targetdir:reports/coverage/html" "
 
 ### Coverage policy
 
-Unit tests target the **core logic** (scanning, aggregation, representative-value selection, remaining-time calculation, and settings persistence).
-The UI layer (Views / ViewModels / App) and parts depending on external processes or real audio files (AimpLauncher / TagLibTagReader)
+Unit tests target the **core logic** (scanning, aggregation, representative-value selection, remaining-time calculation, and settings persistence)
+plus the ViewModel logic that restores and saves the input state.
+The view layer (Views / App), ViewModel paths that show modal dialogs, and parts depending on external processes or real audio files (AimpLauncher / TagLibTagReader)
 are out of scope for unit tests and are verified manually. Coverage of the main classes:
 
 | Class | Line coverage |
 |---|---|
 | RepresentativeValueSelector | 100% |
 | AppSettings / MusicFileInfo / ScanProgress | 100% |
+| RemainingTimeCalculator | 95.6% |
 | MusicFolderScanner | 90.5% |
-| RemainingTimeCalculator | 84.4% |
 | JsonSettingsService | 82.8% |
-| FolderScanResult | 77.7% |
+| FolderScanResult | 77.8% |
+| MainViewModel | 49.7% |
 
 These figures are a snapshot taken at measurement time. For current values, see the
 `coverage-report` artifact produced by the test workflow.
