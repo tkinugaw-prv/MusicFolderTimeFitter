@@ -111,11 +111,11 @@ are out of scope for unit tests and are verified manually. Coverage of the main 
 |---|---|
 | RepresentativeValueSelector | 100% |
 | AppSettings / MusicFileInfo / ScanProgress | 100% |
-| RemainingTimeCalculator | 95.6% |
+| RemainingTimeCalculator | 95.5% |
 | MusicFolderScanner | 90.5% |
 | JsonSettingsService | 82.8% |
-| FolderScanResult | 77.8% |
-| MainViewModel | 49.7% |
+| FolderScanResult | 77.7% |
+| MainViewModel | 37.0% |
 
 These figures are a snapshot taken at measurement time. For current values, see the
 `coverage-report` artifact produced by the test workflow.

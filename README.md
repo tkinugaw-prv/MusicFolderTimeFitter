@@ -114,11 +114,11 @@ ViewModel の入力状態の復元・保存ロジックです。View 層（Views
 |---|---|
 | RepresentativeValueSelector | 100% |
 | AppSettings / MusicFileInfo / ScanProgress | 100% |
-| RemainingTimeCalculator | 95.6% |
+| RemainingTimeCalculator | 95.5% |
 | MusicFolderScanner | 90.5% |
 | JsonSettingsService | 82.8% |
-| FolderScanResult | 77.8% |
-| MainViewModel | 49.7% |
+| FolderScanResult | 77.7% |
+| MainViewModel | 37.0% |
 
 数値は計測時点のスナップショットです。最新の値は test ワークフローが生成する
 `coverage-report` アーティファクトを参照してください。
