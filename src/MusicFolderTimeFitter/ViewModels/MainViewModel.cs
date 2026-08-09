@@ -31,15 +31,16 @@ namespace MusicFolderTimeFitter.ViewModels
 
         /// <summary>所要時間モードが選択されているか（false は目標時刻モード）。</summary>
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsTargetTimeMode))]
         private bool _isDurationMode = true;
 
         /// <summary>所要時間モードの分数入力テキスト。</summary>
         [ObservableProperty]
-        private string _durationMinutesText = "90";
+        private string _durationMinutesText = Const.DEFAULT_DURATION_MINUTES.ToString();
 
         /// <summary>目標時刻モードの時刻入力テキスト（HH:mm）。</summary>
         [ObservableProperty]
-        private string _targetTimeText = "18:30";
+        private string _targetTimeText = Const.DEFAULT_TARGET_TIME;
 
         /// <summary>スキャン実行中か。</summary>
         [ObservableProperty]
@@ -75,6 +76,23 @@ namespace MusicFolderTimeFitter.ViewModels
         /// <summary>条件に該当したフォルダーの一覧（表示用）。</summary>
         public ObservableCollection<FolderScanResult> Results { get; } = new();
 
+        /// <summary>
+        /// 目標時刻モードが選択されているか（<see cref="IsDurationMode"/> の反転）。
+        /// 目標時刻ラジオボタンの選択状態を双方向で保持するために使用する。
+        /// </summary>
+        public bool IsTargetTimeMode
+        {
+            get
+            {
+                return !IsDurationMode;
+            }
+
+            set
+            {
+                IsDurationMode = !value;
+            }
+        }
+
         /// <summary>空状態メッセージを表示すべきか。</summary>
         public bool IsEmptyStateVisible
         {
@@ -104,11 +122,32 @@ namespace MusicFolderTimeFitter.ViewModels
 
             AppSettings settings = _settingsService.Load();
             RootFolderPath = settings.LastRootFolderPath ?? string.Empty;
+            RestoreTimeInputs(settings);
 
             Results.CollectionChanged += (_, _) => OnPropertyChanged(nameof(IsEmptyStateVisible));
 
             RefreshAimpAvailability();
             UpdateTargetTimeFromDuration();
+        }
+
+        /// <summary>
+        /// 前回終了時の時間指定入力（モード・所要時間・目標時刻）を設定から復元する。
+        /// 不正な値が保存されていた場合はデフォルト値にフォールバックする。
+        /// </summary>
+        /// <param name="settings">読み込み済みの設定。</param>
+        private void RestoreTimeInputs(AppSettings settings)
+        {
+            // モードは最後に設定する（所要時間モードでは目標時刻欄が再計算で上書きされるため）
+            DurationMinutesText = settings.DurationMinutes > 0
+                ? settings.DurationMinutes.ToString()
+                : Const.DEFAULT_DURATION_MINUTES.ToString();
+
+            TargetTimeText =
+                RemainingTimeCalculator.TryParseTargetTime(settings.TargetTime, out TimeOnly targetTime)
+                    ? targetTime.ToString("HH:mm")
+                    : Const.DEFAULT_TARGET_TIME;
+
+            IsDurationMode = settings.IsDurationMode;
         }
 
         /// <summary>所要時間の分数入力が変化したら目標時刻の表示を更新する。</summary>
@@ -232,7 +271,7 @@ namespace MusicFolderTimeFitter.ViewModels
                 MatchedCount = matched.Count;
                 StatusText = "スキャン完了";
 
-                SaveLastRootFolder();
+                SaveInputSettings();
             }
             catch (Exception ex)
             {
@@ -346,12 +385,25 @@ namespace MusicFolderTimeFitter.ViewModels
         }
 
         /// <summary>
-        /// 直前に使用したルートフォルダーパスを設定に保存する。
+        /// 現在の入力内容（ルートフォルダー・時間指定モード・所要時間・目標時刻）を設定に保存する。
+        /// パースできない入力は保存対象から除外し、前回の保存値を維持する。
         /// </summary>
-        private void SaveLastRootFolder()
+        public void SaveInputSettings()
         {
             AppSettings settings = _settingsService.Load();
             settings.LastRootFolderPath = RootFolderPath;
+            settings.IsDurationMode = IsDurationMode;
+
+            if (int.TryParse(DurationMinutesText, out int minutes) && minutes > 0)
+            {
+                settings.DurationMinutes = minutes;
+            }
+
+            if (RemainingTimeCalculator.TryParseTargetTime(TargetTimeText, out TimeOnly targetTime))
+            {
+                settings.TargetTime = targetTime.ToString("HH:mm");
+            }
+
             _settingsService.Save(settings);
         }
 

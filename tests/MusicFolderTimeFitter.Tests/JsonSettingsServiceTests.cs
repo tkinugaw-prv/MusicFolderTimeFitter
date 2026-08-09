@@ -55,6 +55,9 @@ namespace MusicFolderTimeFitter.Tests
 
             Assert.Equal(Const.DEFAULT_AIMP_EXECUTABLE_PATH, settings.AimpExecutablePath);
             Assert.Null(settings.LastRootFolderPath);
+            Assert.True(settings.IsDurationMode);
+            Assert.Equal(Const.DEFAULT_DURATION_MINUTES, settings.DurationMinutes);
+            Assert.Equal(Const.DEFAULT_TARGET_TIME, settings.TargetTime);
         }
 
         /// <summary>
@@ -68,6 +71,9 @@ namespace MusicFolderTimeFitter.Tests
             {
                 AimpExecutablePath = @"C:\Tools\AIMP\AIMP.exe",
                 LastRootFolderPath = @"D:\Music\Library",
+                IsDurationMode = false,
+                DurationMinutes = 45,
+                TargetTime = "07:15",
             };
 
             service.Save(settings);
@@ -75,6 +81,9 @@ namespace MusicFolderTimeFitter.Tests
 
             Assert.Equal(@"C:\Tools\AIMP\AIMP.exe", loaded.AimpExecutablePath);
             Assert.Equal(@"D:\Music\Library", loaded.LastRootFolderPath);
+            Assert.False(loaded.IsDurationMode);
+            Assert.Equal(45, loaded.DurationMinutes);
+            Assert.Equal("07:15", loaded.TargetTime);
         }
 
         /// <summary>

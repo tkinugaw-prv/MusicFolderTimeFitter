@@ -74,13 +74,16 @@ dotnet run --project src/MusicFolderTimeFitter   # ウィンドウが開く。�
 dotnet test
 ```
 
-38 件全パス(約 1 秒)。カバレッジ付き実行は README.md 参照。
+45 件全パス(約 1 秒)。カバレッジ付き実行は README.md 参照。
 
 ## Gotchas
 
 - **「参照...」ボタンは押さない** — `OpenFolderDialog`(ネイティブダイアログ)が開き UIA での操作が面倒。
   ルートフォルダーは `MainViewModel` が起動時に settings.json の `LastRootFolderPath` から復元するため、
   driver の `start` が設定ファイルをシードして注入する(既存設定は `.mftf-driver-bak` にバックアップし `stop` で復元)。
+- **時間指定モード・所要時間・目標時刻もアプリ終了時に settings.json へ保存され、起動時に復元される** —
+  `start` は `LastRootFolderPath` のみ差し替えて他のキーは保持するので、起動直後の状態は前回終了時の入力に依存する。
+  観察したい状態は `set-minutes` / `set-target` で毎回明示すること。
 - **テスト音源は手組みの偽 FLAC** — `fLaC` マーカー + STREAMINFO(総サンプル数→再生時間)+
   VORBIS_COMMENT(タグ)+ ダミー音声 4096 バイト。TagLibSharp は音声ストリーム長が 0 だと
   Duration を 0 と報告するため、ダミー音声領域が必須(実測でハマった)。
