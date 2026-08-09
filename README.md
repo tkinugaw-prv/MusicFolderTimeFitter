@@ -123,6 +123,15 @@ ViewModel の入力状態の復元・保存ロジックです。View 層（Views
 数値は計測時点のスナップショットです。最新の値は test ワークフローが生成する
 `coverage-report` アーティファクトを参照してください。
 
+### 依存関係の更新
+
+NuGet パッケージと GitHub Actions のバージョン更新は Dependabot が毎週 PR にします
+（[設定](.github/dependabot.yml)）。宛先は既定ブランチの `develop`。
+minor / patch はまとめ、major は 1 件ずつ出します。
+
+ワークフローの Action はコミット SHA で固定していますが、Dependabot は SHA と
+末尾のバージョンコメントの両方を書き換えるため、固定方針は崩れません。
+
 ## 使用する環境変数
 
 本アプリケーションで使用する環境変数はありません。

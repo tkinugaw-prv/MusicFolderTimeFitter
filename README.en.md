@@ -120,6 +120,15 @@ are out of scope for unit tests and are verified manually. Coverage of the main 
 These figures are a snapshot taken at measurement time. For current values, see the
 `coverage-report` artifact produced by the test workflow.
 
+### Dependency updates
+
+Dependabot opens weekly pull requests for NuGet packages and GitHub Actions
+([configuration](.github/dependabot.yml)). They target the default branch, `develop`.
+Minor and patch updates are grouped; major updates come one at a time.
+
+Actions in the workflows are pinned to commit SHAs. Dependabot rewrites both the SHA
+and the trailing version comment, so the pinning convention stays intact.
+
 ## Environment Variables
 
 This application does not use any environment variables.
