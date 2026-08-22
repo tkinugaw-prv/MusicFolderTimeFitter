@@ -54,6 +54,7 @@ dotnet publish src/MusicFolderTimeFitter -p:PublishProfile=win-x64-framework-dep
 Release には exe 2 種類に加えて `LICENSE.txt` と
 [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md) が添付されます。
 バージョンはタグ名から設定されます（例: `v1.2.3` → `1.2.3`）。
+タグは `main` の最新コミットから切ります（「ブランチ運用と保護設定」を参照）。
 
 ```powershell
 git tag v1.0.0
@@ -81,6 +82,27 @@ git push origin v1.0.0
 - 対象ファイルが1つもない、または合計時間 0 のフォルダーは一覧対象外。
 - タグ表示項目（作曲者・アーティスト・アルバム・アルバムアーティスト・年）の代表値は、
   **値なしを除外した最頻値**（同数タイは最小値、全ファイル値なしは `(不明)`）。
+
+## ブランチ運用と保護設定
+
+| ブランチ | 役割 |
+|---|---|
+| `develop` | 既定ブランチ。日常の開発と Dependabot PR の統合先 |
+| `main` | リリース対象。`develop` からの PR のみで更新する |
+
+機能追加・修正は `develop` に対して PR を出します。リリース時は `develop` → `main` の PR を
+作成してマージし、`main` からリリースタグ（`v*`）を切ります。
+
+両ブランチはリポジトリの ruleset（`dev-protection` / `main-protection`）で保護しています。
+バイパスできるアクターは設定していません。
+
+- **PR 経由のみ**（直接 push 不可）。単独開発のため必要な承認数は 0
+- **[test ワークフロー](.github/workflows/test.yml)の成功が必須**。マージ前にベースブランチへの追従も必須
+- **ブランチの削除と force push を禁止**
+
+リリースタグは `tag-protection` ruleset で保護し、`refs/tags/v*` の削除・付け替え・force push を
+禁止しています。[release ワークフロー](.github/workflows/release.yml)は `contents: write` を持つため、
+タグの付け替えによって公開済み Release の内容が差し替わることを防ぐ目的です。
 
 ## テストとカバレッジレポート
 

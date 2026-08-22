@@ -53,6 +53,7 @@ runs tests → publishes both configurations → creates a GitHub Release.
 Besides the two exe files, the Release also carries `LICENSE.txt` and
 [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
 The version is derived from the tag name (e.g. `v1.2.3` → `1.2.3`).
+Cut the tag from the tip of `main` (see "Branch Strategy and Protection").
 
 ```powershell
 git tag v1.0.0
@@ -79,6 +80,27 @@ The root folder, time specification mode, duration, and target time are saved on
 - Folders with no target files, or with a total duration of 0, are not listed.
 - The representative value for each displayed tag field (composer, artist, album, album artist, year) is
   the **mode (most frequent value) excluding empty values** (ties resolve to the smallest value; if all files lack the value, `(不明)` (unknown) is shown).
+
+## Branch Strategy and Protection
+
+| Branch | Role |
+|---|---|
+| `develop` | Default branch. Integration target for day-to-day work and Dependabot PRs |
+| `main` | Release branch. Updated only through a PR from `develop` |
+
+Features and fixes go to `develop` as pull requests. To release, open and merge a
+`develop` → `main` pull request, then cut the release tag (`v*`) from `main`.
+
+Both branches are protected by repository rulesets (`dev-protection` / `main-protection`),
+with no bypass actors configured.
+
+- **Pull requests only** (no direct pushes). Required approvals are 0, since this is a solo project
+- **The [test workflow](.github/workflows/test.yml) must pass**, and a branch must be up to date with its base before merging
+- **Branch deletion and force pushes are blocked**
+
+Release tags are protected by the `tag-protection` ruleset, which blocks deletion, retargeting,
+and force pushes on `refs/tags/v*`. The [release workflow](.github/workflows/release.yml) holds
+`contents: write`, so this prevents a moved tag from silently replacing a published Release.
 
 ## Tests and Coverage Reports
 
