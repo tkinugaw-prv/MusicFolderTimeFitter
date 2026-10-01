@@ -67,8 +67,11 @@ git push origin v1.0.0
    - **所要時間 (Duration)**: enter how many minutes you can listen from now (e.g. 90)
    - **目標時刻 (Target time)**: enter the time you want to finish listening by, in `HH:mm` (e.g. 18:30). Inputs without a colon such as `1030` or `730` are auto-completed. Times in the past are rejected.
 3. Click "スキャン開始" (Start scan) to aggregate the total duration per folder (direct files only; subfolders are treated as independent units), and only folders that fit within the remaining time are listed.
-4. Click the ▶ button on a row, or double-click the row, to hand the folder off to AIMP for playback.
-5. The path to the AIMP executable can be changed from "設定" (Settings) at the right of the title bar
+4. Type free words into the "絞り込み" (Filter) box above the list to show only rows where the folder name, composer, artist, or album artist contains them
+   (space-separated words are combined with AND; case and full-width/half-width differences are ignored; press Esc or the ✕ button to clear).
+   Album and year are not searched, because the year digits in them tend to cause false matches.
+5. Click the ▶ button on a row, or double-click the row, to hand the folder off to AIMP for playback.
+6. The path to the AIMP executable can be changed from "設定" (Settings) at the right of the title bar
    (default: `D:\AIMP\AIMP.exe`; settings are persisted to `%APPDATA%\MusicFolderTimeFitter\settings.json`).
 
 The root folder, time specification mode, duration, and target time are saved on exit and restored on the next launch

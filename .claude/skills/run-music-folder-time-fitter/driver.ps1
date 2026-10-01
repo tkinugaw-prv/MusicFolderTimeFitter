@@ -12,6 +12,7 @@
 #   pwsh -File driver.ps1 dump                   # UIA ツリーを表示
 #   pwsh -File driver.ps1 set-minutes -Value 60  # 所要時間(分)を設定
 #   pwsh -File driver.ps1 set-target -Value 18:30# 目標時刻モードに切替+時刻設定
+#   pwsh -File driver.ps1 set-filter -Value Bach # 結果一覧のフリーワード絞り込み(空文字でクリア)
 #   pwsh -File driver.ps1 scan                   # スキャン開始を押し完了まで待つ
 #   pwsh -File driver.ps1 results                # 結果一覧とステータスをテキストで出力
 #   pwsh -File driver.ps1 screenshot [-Path x]   # ウィンドウのスクリーンショット
@@ -19,7 +20,7 @@
 # =============================================================================
 param(
     [Parameter(Mandatory, Position = 0)]
-    [ValidateSet("smoke", "testdata", "start", "dump", "set-minutes", "set-target", "scan", "results", "screenshot", "stop")]
+    [ValidateSet("smoke", "testdata", "start", "dump", "set-minutes", "set-target", "set-filter", "scan", "results", "screenshot", "stop")]
     [string]$Action,
 
     [string]$RootFolder,
@@ -183,7 +184,7 @@ function Invoke-ButtonByName {
 }
 
 function Set-EditValue {
-    # メイン画面の Edit は視覚順に [0]=ルートフォルダー(読取専用) [1]=所要時間(分) [2]=目標時刻
+    # メイン画面の Edit は視覚順に [0]=ルートフォルダー(読取専用) [1]=所要時間(分) [2]=目標時刻 [3]=絞り込み
     param($Window, [int]$Index, [string]$Text)
     $edits = Find-ByType $Window ([System.Windows.Automation.ControlType]::Edit)
     if ($edits.Count -le $Index) { throw "Edit[$Index] が見つかりません(検出数: $($edits.Count))。" }
@@ -207,6 +208,7 @@ function Get-StatusTexts {
         if ($n -match "^スキャン:") { $result.Scanned = $n }
         elseif ($n -match "^該当:") { $result.Matched = $n }
         elseif ($n -match "^除外:") { $result.Excluded = $n }
+        elseif ($n -match "^表示:") { $result.Displayed = $n }
         elseif ($n -in @("待機中", "スキャン中...", "スキャン完了", "スキャン失敗") -or $n -match "^AIMP で再生") { $result.Status = $n }
     }
     return $result
@@ -273,7 +275,8 @@ function Invoke-Scan {
 function Show-Results {
     $w = Get-MainWindow
     $st = Get-StatusTexts $w
-    Write-Output "ステータス: $($st.Status) | $($st.Scanned) | $($st.Matched) | $($st.Excluded)"
+    $displayed = $st.Displayed ? " | $($st.Displayed)" : ""
+    Write-Output "ステータス: $($st.Status) | $($st.Scanned) | $($st.Matched)$displayed | $($st.Excluded)"
 
     # セル値は ValuePattern ではなく Name プロパティに入る(WPF DataGridCell の UIA 実装)。
     # 最終列(再生ボタン列)の Name は "項目: ..." になるため除外する。
@@ -374,6 +377,12 @@ switch ($Action) {
         Select-RadioByName $w "目標時刻"
         Set-EditValue $w 2 $Value
         Write-Output "目標時刻モード: $Value"
+    }
+    "set-filter" {
+        # -Value 省略(空文字)で絞り込みをクリアする
+        $w = Get-MainWindow
+        Set-EditValue $w 3 ($Value ? $Value : "")
+        Write-Output "絞り込み: '$Value'"
     }
     "scan" { Invoke-Scan }
     "results" { Show-Results }

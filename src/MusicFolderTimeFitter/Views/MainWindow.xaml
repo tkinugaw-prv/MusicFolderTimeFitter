@@ -126,7 +126,59 @@
 
         <!-- ============ C. 結果一覧 ============ -->
         <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- フリーワード絞り込みバー -->
+            <Border Grid.Row="0"
+                    Background="{StaticResource PanelInputBrush}"
+                    BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="0,0,0,1"
+                    Padding="20,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               VerticalAlignment="Center"
+                               FontFamily="Segoe MDL2 Assets"
+                               FontSize="13"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Text="&#xE721;" />
+                    <TextBlock Grid.Column="1"
+                               Margin="8,0,10,0"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Text="絞り込み" />
+                    <TextBox Grid.Column="2"
+                             Style="{StaticResource DarkTextBoxStyle}"
+                             Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="フォルダー名・作曲者・アーティスト・アルバムアーティストを対象に絞り込みます（スペース区切りで AND 検索、Esc でクリア）">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Escape" Command="{Binding ClearFilterCommand}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Grid.Column="3"
+                            Margin="10,0,0,0"
+                            Command="{Binding ClearFilterCommand}"
+                            Style="{StaticResource OutlineButtonStyle}"
+                            ToolTip="絞り込みをクリア">
+                        <TextBlock VerticalAlignment="Center"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="11"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   Text="&#xE711;" />
+                    </Button>
+                </Grid>
+            </Border>
+
             <DataGrid x:Name="ResultGrid"
+                      Grid.Row="1"
                       CellStyle="{StaticResource ResultCellStyle}"
                       ColumnHeaderStyle="{StaticResource ResultColumnHeaderStyle}"
                       ItemsSource="{Binding Results}"
@@ -192,11 +244,12 @@
             </DataGrid>
 
             <!-- 空状態表示 -->
-            <TextBlock HorizontalAlignment="Center"
+            <TextBlock Grid.Row="1"
+                       HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="13"
                        Foreground="{StaticResource TextSecondaryBrush}"
-                       Text="条件に一致するフォルダーがありません"
+                       Text="{Binding EmptyStateText}"
                        Visibility="{Binding IsEmptyStateVisible, Converter={StaticResource BoolToVisibility}}" />
         </Grid>
 
@@ -220,6 +273,16 @@
                         <Run FontWeight="SemiBold"
                              Foreground="{StaticResource AccentBrush}"
                              Text="{Binding MatchedCount, Mode=OneWay}" />
+                        <Run Text="件" />
+                    </TextBlock>
+                    <TextBlock Margin="16,0,0,0"
+                               FontSize="11.5"
+                               Foreground="{StaticResource TextStatusBrush}"
+                               Visibility="{Binding IsFiltering, Converter={StaticResource BoolToVisibility}}">
+                        <Run Text="表示:" />
+                        <Run FontWeight="SemiBold"
+                             Foreground="{StaticResource AccentBrush}"
+                             Text="{Binding DisplayedCount, Mode=OneWay}" />
                         <Run Text="件" />
                     </TextBlock>
                     <TextBlock Margin="16,0,0,0"
