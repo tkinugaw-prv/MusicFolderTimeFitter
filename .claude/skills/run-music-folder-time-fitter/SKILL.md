@@ -40,6 +40,7 @@ pwsh -NoProfile -File $d start                    # settings.json をシード�
 pwsh -NoProfile -File $d set-minutes -Value 60    # 所要時間モード + 60 分
 pwsh -NoProfile -File $d scan                     # スキャン開始 → 完了待ち
 pwsh -NoProfile -File $d results                  # ステータス + 結果一覧をテキスト出力
+pwsh -NoProfile -File $d set-filter -Value Medium # 結果一覧をフリーワードで絞り込み(-Value 省略でクリア)
 pwsh -NoProfile -File $d set-target -Value 23:59  # 目標時刻モードに切替
 pwsh -NoProfile -File $d scan
 pwsh -NoProfile -File $d screenshot               # → %TEMP%\mftf-screenshot.png
@@ -54,6 +55,7 @@ pwsh -NoProfile -File $d stop                     # 終了 + settings.json 復�
 | `dump` | メインウィンドウの UIA ツリーを表示(要素探索のデバッグ用) |
 | `set-minutes -Value N` | 所要時間モードに切替えて分数を設定 |
 | `set-target -Value HH:mm` | 目標時刻モードに切替えて時刻を設定(過去時刻はスキャン時にエラーダイアログ) |
+| `set-filter [-Value x]` | 結果一覧上部の絞り込み欄に入力(省略・空文字でクリア)。絞り込み中は `results` に「表示: n 件」が出る |
 | `scan` | 「スキャン開始」を押して完了/失敗まで待機。エラーダイアログ検出時は内容を表示して throw |
 | `results` | ステータスバーの件数と DataGrid 全行をテキスト出力 |
 | `screenshot [-Path x]` | ウィンドウをキャプチャ(既定: `%TEMP%\mftf-screenshot.png`)。撮ったら必ず Read で目視確認 |
@@ -74,7 +76,7 @@ dotnet run --project src/MusicFolderTimeFitter   # ウィンドウが開く。�
 dotnet test
 ```
 
-45 件全パス(約 1 秒)。カバレッジ付き実行は README.md 参照。
+71 件全パス(約 1 秒)。カバレッジ付き実行は README.md 参照。
 
 ## Gotchas
 
@@ -91,7 +93,7 @@ dotnet test
   ValuePattern を公開するが `Value` は空文字を返す。`Current.Name` に表示文字列が入っている。
   最終列(再生ボタン列)の Name は `項目: MusicFolderTimeFitter.Models.FolderScanResult、...` なので除外する。
 - **TextBox の特定はインデックス** — Edit 要素に AutomationId がないため視覚順で
-  `[0]=ルートフォルダー(読取専用) [1]=所要時間(分) [2]=目標時刻` と決め打ちしている。
+  `[0]=ルートフォルダー(読取専用) [1]=所要時間(分) [2]=目標時刻 [3]=絞り込み` と決め打ちしている。
   入力欄を追加・並べ替えたら driver の `Set-EditValue` 呼び出しを直すこと。
 - **最小化するとタスクトレイに格納されウィンドウが消える**(`TrayIconController`)。
   UIA から見えなくなるので driver 操作中は最小化しない。閉じる(×)は普通に終了する。

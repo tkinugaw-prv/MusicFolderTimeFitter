@@ -73,8 +73,40 @@ namespace MusicFolderTimeFitter.ViewModels
         [ObservableProperty]
         private bool _isAimpAvailable;
 
-        /// <summary>条件に該当したフォルダーの一覧（表示用）。</summary>
+        /// <summary>結果一覧のフリーワード絞り込み文字列。</summary>
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsFiltering))]
+        private string _filterText = string.Empty;
+
+        /// <summary>絞り込み後に一覧へ表示しているフォルダー数。</summary>
+        [ObservableProperty]
+        private int _displayedCount;
+
+        /// <summary>条件に該当したフォルダーの一覧（絞り込み前、合計時間降順）。</summary>
+        private readonly List<FolderScanResult> _matchedResults = new();
+
+        /// <summary>条件に該当し、かつ絞り込みに一致したフォルダーの一覧（表示用）。</summary>
         public ObservableCollection<FolderScanResult> Results { get; } = new();
+
+        /// <summary>フリーワード絞り込みが有効か（空白以外の入力があるか）。</summary>
+        public bool IsFiltering
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(FilterText);
+            }
+        }
+
+        /// <summary>空状態に表示するメッセージ（絞り込みで 0 件になった場合は専用の文言）。</summary>
+        public string EmptyStateText
+        {
+            get
+            {
+                return _matchedResults.Count > 0
+                    ? "絞り込み条件に一致するフォルダーがありません"
+                    : "条件に一致するフォルダーがありません";
+            }
+        }
 
         /// <summary>
         /// 目標時刻モードが選択されているか（<see cref="IsDurationMode"/> の反転）。
@@ -241,7 +273,8 @@ namespace MusicFolderTimeFitter.ViewModels
             ScannedCount = 0;
             MatchedCount = 0;
             ExcludedCount = 0;
-            Results.Clear();
+            _matchedResults.Clear();
+            ApplyFilter();
 
             try
             {
@@ -263,8 +296,10 @@ namespace MusicFolderTimeFitter.ViewModels
                 foreach (FolderScanResult folder in matched)
                 {
                     folder.Slack = remaining.Value - folder.TotalDuration;
-                    Results.Add(folder);
+                    _matchedResults.Add(folder);
                 }
+
+                ApplyFilter();
 
                 ScannedCount = outcome.ScannedCount;
                 ExcludedCount = outcome.ExcludedCount;
@@ -287,6 +322,44 @@ namespace MusicFolderTimeFitter.ViewModels
                 IsScanning = false;
                 HasScanned = true;
             }
+        }
+
+        /// <summary>絞り込み文字列が変化したら表示一覧を更新する。</summary>
+        /// <param name="value">変更後の絞り込み文字列。</param>
+        partial void OnFilterTextChanged(string value)
+        {
+            ApplyFilter();
+        }
+
+        /// <summary>
+        /// 該当フォルダー一覧に絞り込み文字列を適用し、表示用の <see cref="Results"/> を更新する。
+        /// 並び順（合計時間降順）は維持する。
+        /// </summary>
+        private void ApplyFilter()
+        {
+            string[] terms = FreeWordMatcher.SplitTerms(FilterText);
+
+            Results.Clear();
+
+            foreach (FolderScanResult folder in _matchedResults)
+            {
+                if (FreeWordMatcher.IsMatch(folder, terms))
+                {
+                    Results.Add(folder);
+                }
+            }
+
+            DisplayedCount = Results.Count;
+            OnPropertyChanged(nameof(EmptyStateText));
+        }
+
+        /// <summary>
+        /// 絞り込み文字列をクリアして全件表示に戻す。
+        /// </summary>
+        [RelayCommand]
+        private void ClearFilter()
+        {
+            FilterText = string.Empty;
         }
 
         /// <summary>
