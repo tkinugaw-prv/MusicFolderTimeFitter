@@ -1,3 +1,4 @@
+using System.IO;
 using MusicFolderTimeFitter.Models;
 using MusicFolderTimeFitter.Services;
 using MusicFolderTimeFitter.ViewModels;
@@ -57,17 +58,29 @@ namespace MusicFolderTimeFitter.Tests
         }
 
         /// <summary>
-        /// 何もしないテスト用のフォルダースキャナー。
+        /// 指定したフォルダー一覧をスキャン結果として返すテスト用のフォルダースキャナー。
         /// </summary>
         private sealed class StubScanner : IMusicFolderScanner
         {
+            /// <summary>スキャン結果として返すフォルダー一覧。</summary>
+            private readonly IReadOnlyList<FolderScanResult> _folders;
+
+            /// <summary>
+            /// コンストラクター。
+            /// </summary>
+            /// <param name="folders">スキャン結果として返すフォルダー一覧。null の場合は空。</param>
+            public StubScanner(IReadOnlyList<FolderScanResult>? folders = null)
+            {
+                _folders = folders ?? [];
+            }
+
             /// <inheritdoc />
             public Task<FolderScanOutcome> ScanAsync(
                 string rootPath,
                 IProgress<ScanProgress>? progress,
                 CancellationToken cancellationToken)
             {
-                return Task.FromResult(new FolderScanOutcome([], 0, 0, []));
+                return Task.FromResult(new FolderScanOutcome(_folders.ToList(), _folders.Count, 0, []));
             }
         }
 
@@ -90,14 +103,17 @@ namespace MusicFolderTimeFitter.Tests
 
         /// <summary>現在時刻 14:00 固定で ViewModel を生成する。</summary>
         /// <param name="settingsService">使用する設定サービス。</param>
+        /// <param name="scanner">使用するフォルダースキャナー。null の場合は空の結果を返すスタブ。</param>
         /// <returns>テスト用 ViewModel。</returns>
-        private static MainViewModel CreateViewModelAt1400(ISettingsService settingsService)
+        private static MainViewModel CreateViewModelAt1400(
+            ISettingsService settingsService,
+            IMusicFolderScanner? scanner = null)
         {
             var timeProvider = new FixedTimeProvider(
                 new DateTimeOffset(2026, 7, 12, 14, 0, 0, TimeSpan.Zero));
 
             return new MainViewModel(
-                new StubScanner(),
+                scanner ?? new StubScanner(),
                 new RemainingTimeCalculator(timeProvider),
                 settingsService,
                 new StubAimpLauncher());
@@ -241,6 +257,152 @@ namespace MusicFolderTimeFitter.Tests
             viewModel.IsDurationMode = true;
 
             Assert.False(viewModel.IsTargetTimeMode);
+        }
+
+        /// <summary>
+        /// 絞り込みテスト用のフォルダーを生成するヘルパー。
+        /// </summary>
+        /// <param name="relativePath">相対パス。</param>
+        /// <param name="minutes">合計時間（分）。</param>
+        /// <param name="composer">作曲者。</param>
+        /// <param name="artist">アーティスト。</param>
+        /// <returns>テスト用の集計結果。</returns>
+        private static FolderScanResult CreateFolder(string relativePath, int minutes, string composer, string artist)
+        {
+            return new FolderScanResult
+            {
+                AbsolutePath = Path.Combine(@"D:\Music", relativePath),
+                RelativePath = relativePath,
+                TotalDuration = TimeSpan.FromMinutes(minutes),
+                Composer = composer,
+                Artist = artist,
+                Album = "(不明)",
+                AlbumArtist = "(不明)",
+                Year = "(不明)",
+            };
+        }
+
+        /// <summary>
+        /// 3件のフォルダーを返すスキャナーで、所要時間 90 分のスキャンを実行済みの ViewModel を生成する。
+        /// </summary>
+        /// <returns>スキャン済みのテスト用 ViewModel。</returns>
+        private static async Task<MainViewModel> CreateScannedViewModelAsync()
+        {
+            var scanner = new StubScanner(
+            [
+                CreateFolder("Goldberg", 50, "Bach", "Glenn Gould"),
+                CreateFolder("Requiem", 60, "Mozart", "Karajan"),
+                CreateFolder("Partitas", 70, "Bach", "Hilary Hahn"),
+            ]);
+
+            MainViewModel viewModel = CreateViewModelAt1400(new FakeSettingsService(), scanner);
+            viewModel.RootFolderPath = Path.GetTempPath();
+            viewModel.DurationMinutesText = "90";
+
+            await viewModel.StartScanCommand.ExecuteAsync(null);
+
+            return viewModel;
+        }
+
+        /// <summary>
+        /// 絞り込みなしではスキャン該当の全件が合計時間降順で表示されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task 絞り込みなしは全件表示()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+
+            Assert.False(viewModel.IsFiltering);
+            Assert.Equal(["Partitas", "Requiem", "Goldberg"], viewModel.Results.Select(r => r.RelativePath));
+            Assert.Equal(3, viewModel.MatchedCount);
+            Assert.Equal(3, viewModel.DisplayedCount);
+        }
+
+        /// <summary>
+        /// 絞り込み文字列に一致する行だけが、並び順を保ったまま表示されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task FilterText_一致する行だけが順序を保って表示される()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+
+            viewModel.FilterText = "bach";
+
+            Assert.True(viewModel.IsFiltering);
+            Assert.Equal(["Partitas", "Goldberg"], viewModel.Results.Select(r => r.RelativePath));
+            Assert.Equal(2, viewModel.DisplayedCount);
+            Assert.Equal(3, viewModel.MatchedCount);
+        }
+
+        /// <summary>
+        /// 複数語は AND 条件で絞り込まれることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task FilterText_複数語はAND条件()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+
+            viewModel.FilterText = "Bach Gould";
+
+            Assert.Equal(["Goldberg"], viewModel.Results.Select(r => r.RelativePath));
+        }
+
+        /// <summary>
+        /// クリアコマンドで絞り込みが解除され全件表示に戻ることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task ClearFilterCommand_全件表示に戻る()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+            viewModel.FilterText = "Mozart";
+
+            viewModel.ClearFilterCommand.Execute(null);
+
+            Assert.Equal(string.Empty, viewModel.FilterText);
+            Assert.False(viewModel.IsFiltering);
+            Assert.Equal(3, viewModel.Results.Count);
+            Assert.Equal(3, viewModel.DisplayedCount);
+        }
+
+        /// <summary>
+        /// 絞り込み文字列を入力したまま再スキャンしても、新しい結果に絞り込みが適用されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task StartScan_絞り込みは再スキャン後も適用される()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+            viewModel.FilterText = "Mozart";
+
+            await viewModel.StartScanCommand.ExecuteAsync(null);
+
+            Assert.Equal(["Requiem"], viewModel.Results.Select(r => r.RelativePath));
+            Assert.Equal(1, viewModel.DisplayedCount);
+        }
+
+        /// <summary>
+        /// 絞り込みで 0 件になった場合、空状態に絞り込み用のメッセージが表示されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task EmptyStateText_絞り込みで0件なら専用メッセージ()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+
+            viewModel.FilterText = "Beethoven";
+
+            Assert.Empty(viewModel.Results);
+            Assert.True(viewModel.IsEmptyStateVisible);
+            Assert.Equal("絞り込み条件に一致するフォルダーがありません", viewModel.EmptyStateText);
+        }
+
+        /// <summary>
+        /// スキャン該当が 0 件の場合、空状態に従来のメッセージが表示されることを検証する。
+        /// </summary>
+        [Fact]
+        public void EmptyStateText_該当0件なら従来のメッセージ()
+        {
+            MainViewModel viewModel = CreateViewModelAt1400(new FakeSettingsService());
+
+            Assert.Equal("条件に一致するフォルダーがありません", viewModel.EmptyStateText);
         }
     }
 }
