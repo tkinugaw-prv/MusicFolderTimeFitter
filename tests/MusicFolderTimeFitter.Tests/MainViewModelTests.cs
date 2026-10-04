@@ -395,6 +395,125 @@ namespace MusicFolderTimeFitter.Tests
         }
 
         /// <summary>
+        /// 作曲者の選択肢が「すべて」+ 表示中の作曲者（重複なし）になることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task ComposerOptions_表示中の作曲者が重複なしで並ぶ()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+
+            Assert.Equal([MainViewModel.ALL_COMPOSERS_LABEL, "Bach", "Mozart"], viewModel.ComposerOptions);
+            Assert.Equal(MainViewModel.ALL_COMPOSERS_LABEL, viewModel.SelectedComposer);
+        }
+
+        /// <summary>
+        /// 作曲者を選択すると、その作曲者の行だけが順序を保って表示されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task SelectedComposer_選択した作曲者の行だけが表示される()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+
+            viewModel.SelectedComposer = "Bach";
+
+            Assert.True(viewModel.IsFiltering);
+            Assert.Equal(["Partitas", "Goldberg"], viewModel.Results.Select(r => r.RelativePath));
+            Assert.Equal(2, viewModel.DisplayedCount);
+
+            // 作曲者を選んでも選択肢は変わらない（別の作曲者に切り替えられる）
+            Assert.Equal([MainViewModel.ALL_COMPOSERS_LABEL, "Bach", "Mozart"], viewModel.ComposerOptions);
+        }
+
+        /// <summary>
+        /// 作曲者とフリーワードが AND 条件で適用されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task SelectedComposer_フリーワードとAND条件()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+
+            viewModel.SelectedComposer = "Bach";
+            viewModel.FilterText = "Hahn";
+
+            Assert.Equal(["Partitas"], viewModel.Results.Select(r => r.RelativePath));
+        }
+
+        /// <summary>
+        /// フリーワードで絞り込むと、作曲者の選択肢が表示中の作曲者だけに減ることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task ComposerOptions_フリーワードで選択肢が絞られる()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+
+            viewModel.FilterText = "Karajan";
+
+            Assert.Equal([MainViewModel.ALL_COMPOSERS_LABEL, "Mozart"], viewModel.ComposerOptions);
+        }
+
+        /// <summary>
+        /// 選択中の作曲者がフリーワードで選択肢から消えたら「すべて」に戻ることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task SelectedComposer_選択肢から消えたらすべてに戻る()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+            viewModel.SelectedComposer = "Bach";
+
+            viewModel.FilterText = "Karajan";
+
+            Assert.Equal(MainViewModel.ALL_COMPOSERS_LABEL, viewModel.SelectedComposer);
+            Assert.Equal(["Requiem"], viewModel.Results.Select(r => r.RelativePath));
+        }
+
+        /// <summary>
+        /// 選択中の作曲者が残る範囲でフリーワードを変えても、選択が維持されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task SelectedComposer_選択肢に残っていれば維持される()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+            viewModel.SelectedComposer = "Bach";
+
+            viewModel.FilterText = "Gould";
+
+            Assert.Equal("Bach", viewModel.SelectedComposer);
+            Assert.Equal(["Goldberg"], viewModel.Results.Select(r => r.RelativePath));
+        }
+
+        /// <summary>
+        /// クリアコマンドでフリーワードと作曲者の両方が解除されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task ClearFilterCommand_作曲者も解除される()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+            viewModel.SelectedComposer = "Mozart";
+            viewModel.FilterText = "Req";
+
+            viewModel.ClearFilterCommand.Execute(null);
+
+            Assert.Equal(MainViewModel.ALL_COMPOSERS_LABEL, viewModel.SelectedComposer);
+            Assert.False(viewModel.IsFiltering);
+            Assert.Equal(3, viewModel.Results.Count);
+        }
+
+        /// <summary>
+        /// 作曲者を選択したまま再スキャンしても、新しい結果に絞り込みが適用されることを検証する。
+        /// </summary>
+        [Fact]
+        public async Task StartScan_作曲者の選択は再スキャン後も維持される()
+        {
+            MainViewModel viewModel = await CreateScannedViewModelAsync();
+            viewModel.SelectedComposer = "Mozart";
+
+            await viewModel.StartScanCommand.ExecuteAsync(null);
+
+            Assert.Equal("Mozart", viewModel.SelectedComposer);
+            Assert.Equal(["Requiem"], viewModel.Results.Select(r => r.RelativePath));
+        }
+
+        /// <summary>
         /// スキャン該当が 0 件の場合、空状態に従来のメッセージが表示されることを検証する。
         /// </summary>
         [Fact]

@@ -78,6 +78,21 @@ namespace MusicFolderTimeFitter.ViewModels
         [NotifyPropertyChangedFor(nameof(IsFiltering))]
         private string _filterText = string.Empty;
 
+        /// <summary>作曲者プルダウンで「絞り込まない」を表す項目の表示文字列。</summary>
+        public const string ALL_COMPOSERS_LABEL = "(すべての作曲者)";
+
+        /// <summary>作曲者プルダウンの選択項目（<see cref="ALL_COMPOSERS_LABEL"/> は絞り込みなし）。</summary>
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsFiltering))]
+        private string _selectedComposer = ALL_COMPOSERS_LABEL;
+
+        /// <summary>作曲者プルダウンの選択肢（フリーワードで絞り込まれた結果に現れる作曲者）。</summary>
+        [ObservableProperty]
+        private IReadOnlyList<string> _composerOptions = [ALL_COMPOSERS_LABEL];
+
+        /// <summary>作曲者の選択肢を再構築中か（ComboBox が選択を null で書き戻すのを無視するため）。</summary>
+        private bool _isUpdatingComposerOptions;
+
         /// <summary>絞り込み後に一覧へ表示しているフォルダー数。</summary>
         [ObservableProperty]
         private int _displayedCount;
@@ -88,12 +103,12 @@ namespace MusicFolderTimeFitter.ViewModels
         /// <summary>条件に該当し、かつ絞り込みに一致したフォルダーの一覧（表示用）。</summary>
         public ObservableCollection<FolderScanResult> Results { get; } = new();
 
-        /// <summary>フリーワード絞り込みが有効か（空白以外の入力があるか）。</summary>
+        /// <summary>絞り込みが有効か（フリーワードの入力、または作曲者の選択があるか）。</summary>
         public bool IsFiltering
         {
             get
             {
-                return !string.IsNullOrWhiteSpace(FilterText);
+                return !string.IsNullOrWhiteSpace(FilterText) || SelectedComposer != ALL_COMPOSERS_LABEL;
             }
         }
 
@@ -273,6 +288,10 @@ namespace MusicFolderTimeFitter.ViewModels
             ScannedCount = 0;
             MatchedCount = 0;
             ExcludedCount = 0;
+
+            // 結果を空にすると選択肢が消えて選択が「すべて」に戻るため、再スキャン後に復元する
+            string previousComposer = SelectedComposer;
+
             _matchedResults.Clear();
             ApplyFilter();
 
@@ -299,6 +318,7 @@ namespace MusicFolderTimeFitter.ViewModels
                     _matchedResults.Add(folder);
                 }
 
+                SelectedComposer = previousComposer;
                 ApplyFilter();
 
                 ScannedCount = outcome.ScannedCount;
@@ -331,19 +351,37 @@ namespace MusicFolderTimeFitter.ViewModels
             ApplyFilter();
         }
 
+        /// <summary>作曲者の選択が変化したら表示一覧を更新する。</summary>
+        /// <param name="value">変更後の選択項目。</param>
+        partial void OnSelectedComposerChanged(string value)
+        {
+            if (!_isUpdatingComposerOptions)
+            {
+                ApplyFilter();
+            }
+        }
+
         /// <summary>
-        /// 該当フォルダー一覧に絞り込み文字列を適用し、表示用の <see cref="Results"/> を更新する。
-        /// 並び順（合計時間降順）は維持する。
+        /// 該当フォルダー一覧にフリーワードと作曲者の絞り込み（AND 条件）を適用し、
+        /// 表示用の <see cref="Results"/> を更新する。並び順（合計時間降順）は維持する。
+        /// 作曲者の選択肢はフリーワードで絞り込まれた結果に現れる作曲者から作り直す。
         /// </summary>
         private void ApplyFilter()
         {
             string[] terms = FreeWordMatcher.SplitTerms(FilterText);
 
+            List<FolderScanResult> wordMatched =
+                _matchedResults.Where(f => FreeWordMatcher.IsMatch(f, terms)).ToList();
+
+            UpdateComposerOptions(wordMatched);
+
+            bool isAllComposers = SelectedComposer == ALL_COMPOSERS_LABEL;
+
             Results.Clear();
 
-            foreach (FolderScanResult folder in _matchedResults)
+            foreach (FolderScanResult folder in wordMatched)
             {
-                if (FreeWordMatcher.IsMatch(folder, terms))
+                if (isAllComposers || folder.Composer == SelectedComposer)
                 {
                     Results.Add(folder);
                 }
@@ -354,12 +392,45 @@ namespace MusicFolderTimeFitter.ViewModels
         }
 
         /// <summary>
-        /// 絞り込み文字列をクリアして全件表示に戻す。
+        /// 作曲者プルダウンの選択肢を、フリーワードで絞り込まれたフォルダーの作曲者で作り直す。
+        /// 選択中の作曲者が選択肢から消えた場合は「すべての作曲者」に戻す。
+        /// </summary>
+        /// <param name="wordMatched">フリーワードに一致したフォルダー。</param>
+        private void UpdateComposerOptions(IEnumerable<FolderScanResult> wordMatched)
+        {
+            List<string> composers = wordMatched
+                .Select(f => f.Composer)
+                .Distinct()
+                .Order(StringComparer.CurrentCulture)
+                .ToList();
+
+            string selected = composers.Contains(SelectedComposer) ? SelectedComposer : ALL_COMPOSERS_LABEL;
+
+            _isUpdatingComposerOptions = true;
+
+            try
+            {
+                composers.Insert(0, ALL_COMPOSERS_LABEL);
+                ComposerOptions = composers;
+                SelectedComposer = selected;
+
+                // 選択値が変わらない場合でも、ItemsSource 差し替えで外れた ComboBox の選択を復元する
+                OnPropertyChanged(nameof(SelectedComposer));
+            }
+            finally
+            {
+                _isUpdatingComposerOptions = false;
+            }
+        }
+
+        /// <summary>
+        /// フリーワードと作曲者の絞り込みをクリアして全件表示に戻す。
         /// </summary>
         [RelayCommand]
         private void ClearFilter()
         {
             FilterText = string.Empty;
+            SelectedComposer = ALL_COMPOSERS_LABEL;
         }
 
         /// <summary>

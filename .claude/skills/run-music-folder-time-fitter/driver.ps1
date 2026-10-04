@@ -13,6 +13,7 @@
 #   pwsh -File driver.ps1 set-minutes -Value 60  # 所要時間(分)を設定
 #   pwsh -File driver.ps1 set-target -Value 18:30# 目標時刻モードに切替+時刻設定
 #   pwsh -File driver.ps1 set-filter -Value Bach # 結果一覧のフリーワード絞り込み(空文字でクリア)
+#   pwsh -File driver.ps1 set-composer -Value 作曲者A # 作曲者プルダウンを選択(省略で一覧表示のみ)
 #   pwsh -File driver.ps1 scan                   # スキャン開始を押し完了まで待つ
 #   pwsh -File driver.ps1 results                # 結果一覧とステータスをテキストで出力
 #   pwsh -File driver.ps1 screenshot [-Path x]   # ウィンドウのスクリーンショット
@@ -20,7 +21,7 @@
 # =============================================================================
 param(
     [Parameter(Mandatory, Position = 0)]
-    [ValidateSet("smoke", "testdata", "start", "dump", "set-minutes", "set-target", "set-filter", "scan", "results", "screenshot", "stop")]
+    [ValidateSet("smoke", "testdata", "start", "dump", "set-minutes", "set-target", "set-filter", "set-composer", "scan", "results", "screenshot", "stop")]
     [string]$Action,
 
     [string]$RootFolder,
@@ -189,6 +190,27 @@ function Set-EditValue {
     $edits = Find-ByType $Window ([System.Windows.Automation.ControlType]::Edit)
     if ($edits.Count -le $Index) { throw "Edit[$Index] が見つかりません(検出数: $($edits.Count))。" }
     $edits[$Index].GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue($Text)
+}
+
+function Set-Composer {
+    # 作曲者プルダウンを開いて選択肢を表示し、-Value 指定があればその項目を選択する
+    param($Window, [string]$Name)
+    $combo = (Find-ByType $Window ([System.Windows.Automation.ControlType]::ComboBox))[0]
+    if (-not $combo) { throw "作曲者プルダウンが見つかりません。" }
+    $combo.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern).Expand()
+    Start-Sleep -Milliseconds 400
+    $items = Find-ByType $Window ([System.Windows.Automation.ControlType]::ListItem)
+    $selectable = @($items | Where-Object { $_.GetSupportedPatterns() -contains [System.Windows.Automation.SelectionItemPattern]::Pattern })
+    Write-Output ("選択肢: " + (($items | ForEach-Object { $_.Current.Name } | Select-Object -Unique) -join " | "))
+    if ($Name) {
+        $target = ($selectable.Count -gt 0 ? $selectable : $items) | Where-Object { $_.Current.Name -eq $Name } | Select-Object -First 1
+        if (-not $target) { throw "選択肢 '$Name' が見つかりません。" }
+        $target.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
+        Write-Output "作曲者: '$Name'"
+    }
+    else {
+        $combo.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern).Collapse()
+    }
 }
 
 function Select-RadioByName {
@@ -384,6 +406,7 @@ switch ($Action) {
         Set-EditValue $w 3 ($Value ? $Value : "")
         Write-Output "絞り込み: '$Value'"
     }
+    "set-composer" { Set-Composer (Get-MainWindow) $Value }
     "scan" { Invoke-Scan }
     "results" { Show-Results }
     "screenshot" { Save-Screenshot -OutPath $Path }
