@@ -56,6 +56,7 @@ pwsh -NoProfile -File $d stop                     # 終了 + settings.json 復�
 | `set-minutes -Value N` | 所要時間モードに切替えて分数を設定 |
 | `set-target -Value HH:mm` | 目標時刻モードに切替えて時刻を設定(過去時刻はスキャン時にエラーダイアログ) |
 | `set-filter [-Value x]` | 結果一覧上部の絞り込み欄に入力(省略・空文字でクリア)。絞り込み中は `results` に「表示: n 件」が出る |
+| `set-composer [-Value x]` | 作曲者プルダウンを開いて選択肢を表示し、`-Value` の項目を選択(省略で一覧表示のみ。「(すべての作曲者)」で解除) |
 | `scan` | 「スキャン開始」を押して完了/失敗まで待機。エラーダイアログ検出時は内容を表示して throw |
 | `results` | ステータスバーの件数と DataGrid 全行をテキスト出力 |
 | `screenshot [-Path x]` | ウィンドウをキャプチャ(既定: `%TEMP%\mftf-screenshot.png`)。撮ったら必ず Read で目視確認 |
@@ -76,7 +77,7 @@ dotnet run --project src/MusicFolderTimeFitter   # ウィンドウが開く。�
 dotnet test
 ```
 
-71 件全パス(約 1 秒)。カバレッジ付き実行は README.md 参照。
+79 件全パス(約 1 秒)。カバレッジ付き実行は README.md 参照。
 
 ## Gotchas
 
